@@ -15,7 +15,7 @@ class OptionsMenuState;
 
 class KeyConfigMenu : public Menu {
  public:
-  KeyConfigMenu(OptionsMenuState &, int player);
+  KeyConfigMenu(OptionsMenuState &);
   virtual ~KeyConfigMenu();
 
   void render() const;
@@ -24,7 +24,6 @@ class KeyConfigMenu : public Menu {
 
  private:
   OptionsMenuState &_state;
-  int _player;
   std::shared_ptr<InputEvent> *_inputToSet;
   bool _waitingForKey;
 

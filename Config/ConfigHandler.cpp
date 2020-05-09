@@ -52,16 +52,15 @@ bool ConfigHandler::saveConfig() {
     return true;
 }
 
-InputConfig ConfigHandler::getKeyConfig(int player) {
+InputConfig ConfigHandler::getKeyConfig() {
 
-    auto prefix = "p" + std::to_string(player) + "_";
-    return InputConfig(parseInputEvent(prefix + "up"),
-                       parseInputEvent(prefix + "down"),
-                       parseInputEvent(prefix + "left"),
-                       parseInputEvent(prefix + "right"),
-                       parseInputEvent(prefix + "swap"),
-                       parseInputEvent(prefix + "raiseStack"),
-                       parseInputEvent(prefix + "start"));
+    return InputConfig(parseInputEvent("up"),
+                       parseInputEvent("down"),
+                       parseInputEvent("left"),
+                       parseInputEvent("right"),
+                       parseInputEvent("swap"),
+                       parseInputEvent("raiseStack"),
+                       parseInputEvent("start"));
 
 }
 
@@ -74,22 +73,16 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
         case 'J': {
             auto jidEnd = value.find('_', 1);
             auto jidStr = value.substr(1, jidEnd - 1);
-            int joystickId = std::stoi(jidStr);
+            int joystickId = atoi(jidStr.c_str());
             char eventType = value[jidEnd + 1];
             switch (eventType) {
                 case 'B': {
-                    int buttonId = std::stoi(value.substr(jidEnd + 2));
+                    int buttonId = atoi(value.substr(jidEnd + 2).c_str());
                     return new JoyButton(joystickId, buttonId);
-                }
-                case 'H': {
-                    int hidEnd = value.find('_', jidEnd + 1);
-                    int hatId = std::stoi(value.substr(jidEnd + 2, (hidEnd - 1 - (jidEnd + 1))));
-                    int hatDir = std::stoi(value.substr(hidEnd + 1));
-                    return new JoyHat(joystickId, hatId, hatDir);
                 }
                 case 'A': {
                     int aidEnd = value.find('_', jidEnd + 1);
-                    int axisId = std::stoi(value.substr(jidEnd + 2, (aidEnd - 1 - (jidEnd + 1))));
+                    int axisId = atoi(value.substr(jidEnd + 2, (aidEnd - 1 - (jidEnd + 1))).c_str());
                     JoyAxisDirection::Direction
                         axisDir = value[aidEnd + 1] == '+' ? JoyAxisDirection::POSITIVE : JoyAxisDirection::NEGATIVE;
                     return new JoyAxisDirection(joystickId, axisId, axisDir);
@@ -99,16 +92,15 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
     } // TODO: handle errors lol
 }
 
-void ConfigHandler::setKeyConfig(InputConfig config, int player) {
-    StateManager::getInstance().setKeys(config, player);
-    auto prefix = "p" + std::to_string(player) + "_";
-    _settingsTree[prefix + "up"] = config._up->toString();
-    _settingsTree[prefix + "down"] = config._down->toString();
-    _settingsTree[prefix + "left"] = config._left->toString();
-    _settingsTree[prefix + "right"] = config._right->toString();
-    _settingsTree[prefix + "swap"] = config._swap->toString();
-    _settingsTree[prefix + "raiseStack"] = config._raiseStack->toString();
-    _settingsTree[prefix + "start"] = config._start->toString();
+void ConfigHandler::setKeyConfig(InputConfig config) {
+    StateManager::getInstance().setKeys(config);
+    _settingsTree["up"] = config._up->toString();
+    _settingsTree["down"] = config._down->toString();
+    _settingsTree["left"] = config._left->toString();
+    _settingsTree["right"] = config._right->toString();
+    _settingsTree["swap"] = config._swap->toString();
+    _settingsTree["raiseStack"] = config._raiseStack->toString();
+    _settingsTree["start"] = config._start->toString();
 
 }
 

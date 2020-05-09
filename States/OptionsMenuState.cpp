@@ -48,8 +48,8 @@ void OptionsMenuState::goBack() {
     }
 }
 
-void OptionsMenuState::configurePlayerKeys(int player) {
-    pushMenu(new KeyConfigMenu(*this, player));
+void OptionsMenuState::configurePlayerKeys() {
+    pushMenu(new KeyConfigMenu(*this));
 }
 
 void OptionsMenuState::pushMenu(Menu *menu) {

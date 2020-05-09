@@ -71,25 +71,24 @@ void Menu::handleInput() {
 
     const InputConfig& dc = InputManager::defaultMenuConfig;
 
-    InputConfig& config1 = StateManager::getInstance().getKeys(1);
-    InputConfig& config2 = StateManager::getInstance().getKeys(2);
+    InputConfig& config1 = StateManager::getInstance().getKeys();
 
-    if (config1.getDownDirection() == DOWN || config2.getDownDirection() == DOWN || dc.getDownDirection() == DOWN) {
+    if (config1.getDownDirection() == DOWN || dc.getDownDirection() == DOWN) {
         inputDown();
     }
-    if (config1.getDownDirection() == UP || config2.getDownDirection() == UP || dc.getDownDirection() == UP) {
+    if (config1.getDownDirection() == UP || dc.getDownDirection() == UP) {
         inputUp();
     }
-    if (config1.getDownDirection() == LEFT || config2.getDownDirection() == LEFT || dc.getDownDirection() == LEFT) {
+    if (config1.getDownDirection() == LEFT || dc.getDownDirection() == LEFT) {
         inputLeft();
     }
-    if (config1.getDownDirection() == RIGHT || config2.getDownDirection() == RIGHT || dc.getDownDirection() == RIGHT) {
+    if (config1.getDownDirection() == RIGHT || dc.getDownDirection() == RIGHT) {
         inputRight();
     }
-    if (config1.swapDown() || config2.swapDown() || dc.swapDown()) {
+    if (config1.swapDown() || dc.swapDown()) {
         inputEnter();
     }
-    if (config1.raiseStackDown() || config2.raiseStackDown() || dc.raiseStackDown()) {
+    if (config1.raiseStackDown() || dc.raiseStackDown()) {
         inputCancel();
     }
 }

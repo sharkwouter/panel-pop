@@ -10,20 +10,13 @@
 	},
 	"keys" : 
 	{
-		"p1_down" : "KDown",
-		"p1_left" : "KLeft",
-		"p1_raiseStack" : "KZ",
-		"p1_right" : "KRight",
-		"p1_start" : "KReturn",
-		"p1_swap" : "KX",
-		"p1_up" : "KUp",
-		"p2_down" : "J0_A1_+",
-		"p2_left" : "J0_A0_-",
-		"p2_raiseStack" : "J0_B2",
-		"p2_right" : "J0_A0_+",
-		"p2_start" : "J0_B9",
-		"p2_swap" : "J0_B1",
-		"p2_up" : "J0_A1_-"
+		"down" : "J0_B6",
+		"left" : "J0_B7",
+		"raiseStack" : "J0_B3",
+		"right" : "J0_B9",
+		"start" : "J0_B10",
+		"swap" : "J0_B2",
+		"up" : "J0_B8"
 	},
 	"video" : 
 	{

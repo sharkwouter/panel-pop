@@ -39,7 +39,7 @@ StateManager::StateManager() :
     _lastFrame(0),
     _avgFps(0),
     _showFps(false),
-    _inputConfigs{ConfigHandler::getInstance().getKeyConfig(1), ConfigHandler::getInstance().getKeyConfig(2)} {
+    _inputConfigs{ConfigHandler::getInstance().getKeyConfig(), ConfigHandler::getInstance().getKeyConfig()} {
     _currentState = new TitleScreen();
 }
 
@@ -120,12 +120,12 @@ void StateManager::returnToTitle() {
     }
 }
 
-InputConfig &StateManager::getKeys(int player) {
-    return _inputConfigs[player - 1];
+InputConfig &StateManager::getKeys() {
+    return _inputConfigs[0];
 }
 
-void StateManager::setKeys(InputConfig keys, int player) {
-    _inputConfigs[player - 1] = keys;
+void StateManager::setKeys(InputConfig keys) {
+    _inputConfigs[0] = keys;
 }
 
 void StateManager::showFps() {

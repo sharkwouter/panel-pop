@@ -25,8 +25,8 @@ class StateManager {
   void returnToTitle();
   float getAvgFps() const;
   State *getCurrentState() const;
-  InputConfig &getKeys(int);
-  void setKeys(InputConfig, int);
+  InputConfig &getKeys();
+  void setKeys(InputConfig);
   void goBack();
   void quit();
 

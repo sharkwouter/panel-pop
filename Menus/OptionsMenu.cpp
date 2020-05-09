@@ -35,8 +35,8 @@ OptionsMenu::OptionsMenu(OptionsMenuState &state) :
         MenuItem("SFX volume", [&]() {}, cf.getSfxVolume(), MIX_MAX_VOLUME,
                  MenuItem::OptionType::SLIDER));
     addItem(MenuItem("Configure controls", [&]() {
-      _state.configurePlayerKeys(_items.at(_selection).getValue() + 1);
-    }, 0, 1, MenuItem::OptionType::PLAYER));
+      _state.configurePlayerKeys();
+    }, 0, 0, MenuItem::OptionType::PLAYER));
     addItem(MenuItem("Apply", [&]() {
       cf.setFullscreen(_items.at(0).getValue());
       cf.setMusicVolume(_items.at(1).getValue());

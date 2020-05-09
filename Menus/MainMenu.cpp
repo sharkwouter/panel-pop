@@ -32,11 +32,6 @@ MainMenu::MainMenu() {
                    StateManager::getInstance().switchToState(new AIGameState);
                  }));
     addItem(
-        MenuItem("2P VS",
-                 [&]() {
-                   StateManager::getInstance().switchToState(new VsGameState);
-                 }));
-    addItem(
         MenuItem("Options",
                  [&]() {
                    StateManager::getInstance().switchToState(new OptionsMenuState);

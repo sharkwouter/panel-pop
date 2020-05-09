@@ -22,8 +22,8 @@ class ConfigHandler {
   bool loadConfig();
   bool saveConfig();
 
-  InputConfig getKeyConfig(int player);
-  void setKeyConfig(InputConfig, int player);
+  InputConfig getKeyConfig();
+  void setKeyConfig(InputConfig);
   void setFullscreen(bool);
   void setMusicVolume(int);
   void setSfxVolume(int);

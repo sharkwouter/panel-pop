@@ -20,11 +20,10 @@
 #include "MenuItem.h"
 #include "../States/OptionsMenuState.h"
 
-KeyConfigMenu::KeyConfigMenu(OptionsMenuState &state, int player) :
+KeyConfigMenu::KeyConfigMenu(OptionsMenuState &state) :
     _state(state),
-    _player(player),
     _waitingForKey(false),
-    _newKeyConfig(ConfigHandler::getInstance().getKeyConfig(player)) {
+    _newKeyConfig(ConfigHandler::getInstance().getKeyConfig()) {
 
     addItem(
         MenuItem("Up",
@@ -77,7 +76,7 @@ KeyConfigMenu::KeyConfigMenu(OptionsMenuState &state, int player) :
                  0, 0, MenuItem::OptionType::NONE));
 
     addItem(MenuItem("Apply", [&]() {
-      ConfigHandler::getInstance().setKeyConfig(_newKeyConfig, _player);
+      ConfigHandler::getInstance().setKeyConfig(_newKeyConfig);
       ConfigHandler::getInstance().saveConfig();
       _state.goBack();
     }));

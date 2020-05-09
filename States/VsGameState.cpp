@@ -23,10 +23,10 @@ VsGameState::VsGameState() {
     _game->getBoard(0).setEventHandler(new BoardEventHandler(*_gameRenderer, 0));
     _game->getBoard(1).setEventHandler(new BoardEventHandler(*_gameRenderer, 1));
 
-    _playerBoardController = new KeyboardController(_game->getBoard(0), StateManager::getInstance().getKeys(1));
+    _playerBoardController = new KeyboardController(_game->getBoard(0), StateManager::getInstance().getKeys());
 
     _opponentBoardcontollers.push_back(new KeyboardController(_game->getBoard(1),
-                                                              StateManager::getInstance().getKeys(2)));
+                                                              StateManager::getInstance().getKeys()));
 }
 
 VsGameState::~VsGameState() {

@@ -21,7 +21,7 @@ class OptionsMenuState : public State, public Renderer {
   void tick();
   SDL_Texture *render();
   void goBack();
-  void configurePlayerKeys(int);
+  void configurePlayerKeys();
 
  private:
   std::list<Menu *> _menuStack;

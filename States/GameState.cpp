@@ -11,8 +11,8 @@
 #include "StateManager.h"
 
 void GameState::tick() {
-    InputConfig conf1 = StateManager::getInstance().getKeys(1);
-    InputConfig conf2 = StateManager::getInstance().getKeys(2);
+    InputConfig conf1 = StateManager::getInstance().getKeys();
+    InputConfig conf2 = StateManager::getInstance().getKeys();
     if (conf1.startDown() || conf2.startDown() || InputManager::defaultMenuConfig.startDown()) {
         _game->inputTogglePause();
     }

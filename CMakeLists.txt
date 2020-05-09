@@ -55,28 +55,32 @@ set(SRCS
         Menus/Menu.cpp
         InputState.cpp InputState.h InputEvents/InputEvent.cpp InputEvents/InputEvent.h InputEvents/KeyboardKey.cpp InputEvents/KeyboardKey.h Config/InputConfig.cpp Config/InputConfig.h InputEvents/JoyButton.cpp InputEvents/JoyButton.h InputEvents/JoyHat.cpp InputEvents/JoyHat.h InputEvents/JoyAxisDirection.cpp InputEvents/JoyAxisDirection.h)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
+# set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
 
 add_executable(panel-pop ${SRCS})
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
-find_package(SDL2_mixer REQUIRED)
 
-find_package(jsoncpp REQUIRED)
-get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
-
-include_directories(${SDL2_INCLUDE_DIR}
-        ${SDL2_IMAGE_INCLUDE_DIR}
-        ${SDL2_TTF_INCLUDE_DIR}
-        ${SDL2_MIXER_INCLUDE_DIR}
-        ${JSON_INC_PATH}
+include_directories(${PSPDEV}/psp/include/SDL2
+        ${PSPDEV}/psp/include/jsoncpp
+        ${PSPDEV}/psp/include
         )
 
-target_link_libraries(panel-pop ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES}
-        ${SDL2_MIXER_LIBRARIES}
-        -ljsoncpp
+target_link_libraries(panel-pop PRIVATE
+        SDL2main
+        SDL2
+        SDL2_ttf
+        SDL2_mixer
+        jsoncpp
+        ${PSP_LIBRARIES}
+        freetype
+        zzip
+        modplug
         )
+
+create_pbp_file(
+        TARGET panel-pop
+        ICON_PATH NULL
+        BACKGROUND_PATH NULL
+        PREVIEW_PATH NULL
+        TITLE panel-pop
+)
