@@ -59,29 +59,21 @@ set(SRCS
 
 add_executable(panel-pop ${SRCS})
 
-
 include_directories(${PSPDEV}/psp/include/SDL2
         ${PSPDEV}/psp/include/jsoncpp
         ${PSPDEV}/psp/include
-        )
-
-set(PSP_LIBRARIES
-        "-lg -lc -lpspdebug -lpspctrl \
-         -lGL \
-        -lpspvfpu -lpspdisplay -lpsphprm \
-        -lpsprtc -lpspaudio -lpspvram  -lpspgu -lpspge -lpspuser \
-        -L${PSPDEV}/psp/sdk/lib -L${PSPDEV}/lib"
 )
 
 
 target_link_libraries(panel-pop PRIVATE
+        SDL2_mixer
         SDL2main
         SDL2
         SDL2_image
         SDL2_ttf
-        SDL2_mixer
-        jsoncpp
+        stdc++
         ${PSP_LIBRARIES}
+        jsoncpp
         freetype
         vorbisfile
         vorbis
