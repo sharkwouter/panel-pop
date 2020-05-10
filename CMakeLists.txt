@@ -62,6 +62,7 @@ add_executable(panel-pop ${SRCS})
 
 include_directories(${PSPDEV}/psp/include/SDL2
         ${PSPDEV}/psp/include/jsoncpp
+        ${PSPDEV}/psp/sdk/include
         ${PSPDEV}/psp/include
         )
 
@@ -73,7 +74,9 @@ target_link_libraries(panel-pop PRIVATE
         jsoncpp
         ${PSP_LIBRARIES}
         freetype
-        zzip
+        vorbisfile
+        vorbis
+        ogg
         modplug
         )
 
