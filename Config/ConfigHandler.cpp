@@ -94,13 +94,13 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
 
 void ConfigHandler::setKeyConfig(InputConfig config) {
     StateManager::getInstance().setKeys(config);
-    _settingsTree["up"] = config._up->toString();
-    _settingsTree["down"] = config._down->toString();
-    _settingsTree["left"] = config._left->toString();
-    _settingsTree["right"] = config._right->toString();
-    _settingsTree["swap"] = config._swap->toString();
-    _settingsTree["raiseStack"] = config._raiseStack->toString();
-    _settingsTree["start"] = config._start->toString();
+    _settingsTree["key"]["up"] = config._up->toString();
+    _settingsTree["key"]["down"] = config._down->toString();
+    _settingsTree["key"]["left"] = config._left->toString();
+    _settingsTree["key"]["right"] = config._right->toString();
+    _settingsTree["key"]["swap"] = config._swap->toString();
+    _settingsTree["key"]["raiseStack"] = config._raiseStack->toString();
+    _settingsTree["key"]["start"] = config._start->toString();
 
 }
 
