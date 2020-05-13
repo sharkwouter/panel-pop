@@ -79,7 +79,6 @@ target_link_libraries(panel-pop PRIVATE
         jpeg
         z
         freetype
-        modplug
         )
 
 create_pbp_file(
