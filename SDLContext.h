@@ -14,7 +14,7 @@
 
 class SDLContext {
  public:
-  static const int WINDOW_WIDTH = 640, WINDOW_HEIGHT = 480;
+  static const int WINDOW_WIDTH = 480, WINDOW_HEIGHT = 272;
 
   static SDLContext &getInstance();
   bool init();
