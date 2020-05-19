@@ -21,8 +21,8 @@
 
 const int BoardRenderer::BOARD_WIDTH = 192;
 const int BoardRenderer::BOARD_HEIGHT = 384;
-const int BoardRenderer::TILE_SIZE = 32;
-const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
+const int BoardRenderer::TILE_SIZE = 24;
+const int BoardRenderer::CURSOR_ANIM_TICKS = 24;
 
 BoardRenderer::BoardRenderer(const Board &board) :
     _board(board) {
@@ -214,13 +214,13 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
     sprite.w = TILE_SIZE;
     sprite.h = TILE_SIZE;
     switch (block._color) {
-        case BlockColor::CYAN: sprite.x = 64;
+        case BlockColor::CYAN: sprite.x = 48;
             break;
-        case BlockColor::GREEN: sprite.x = 32;
+        case BlockColor::GREEN: sprite.x = 24;
             break;
-        case BlockColor::PURPLE: sprite.x = 96;
+        case BlockColor::PURPLE: sprite.x = 72;
             break;
-        case BlockColor::RED: sprite.x = 128;
+        case BlockColor::RED: sprite.x = 96;
             break;
         case BlockColor::YELLOW: sprite.x = 0;
             break;
@@ -231,15 +231,15 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
             if (block._explosionTimer % 2 == 0) {
                 sprite.y = 0;
             } else {
-                sprite.y = 160;
+                sprite.y = 91;
             }
         } else {
             if (block._explosionTimer < block._explosionAnimTicks) {
-                sprite.y = 128;
+                sprite.y = 72;
             }
         }
     } else if (_board.getState() == Board::GAME_OVER) {
-        sprite.y = 128;
+        sprite.y = 72;
     } else {
         sprite.y = 0;
     }
@@ -271,7 +271,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = 224 + t * TILE_SIZE;
+        sprite.x = 168 + t * TILE_SIZE;
         if (blink) {
             sprite.y += TILE_SIZE;
         }
@@ -285,7 +285,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = 320 + t * TILE_SIZE;
+        sprite.x = 240 + t * TILE_SIZE;
         sprite.y = 0 + u * TILE_SIZE;
         if (blink) {
             sprite.y += 3 * TILE_SIZE;
