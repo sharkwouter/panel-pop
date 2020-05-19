@@ -12,8 +12,13 @@
 #include <SDL2/SDL_timer.h>
 #include <string>
 #include <vector>
+#include <sstream>
 
-#include "../Config/ConfigHandler.h"
+#ifdef __vita__
+  #include "../vita/Config/ConfigHandler.h"
+#else
+  #include "../Config/ConfigHandler.h"
+#endif
 #include "../SDLContext.h"
 #include "MenuItem.h"
 #include "../States/OptionsMenuState.h"

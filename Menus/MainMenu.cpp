@@ -26,21 +26,25 @@ MainMenu::MainMenu() {
                  [&]() {
                    StateManager::getInstance().switchToState(new EndlessGameState);
                  }));
+#ifndef __vita__
     addItem(
         MenuItem("VS AI",
                  [&]() {
                    StateManager::getInstance().switchToState(new AIGameState);
                  }));
+#endif
     addItem(
         MenuItem("2P VS",
                  [&]() {
                    StateManager::getInstance().switchToState(new VsGameState);
                  }));
+#ifndef __vita__
     addItem(
         MenuItem("Options",
                  [&]() {
                    StateManager::getInstance().switchToState(new OptionsMenuState);
                  }));
+#endif
     addItem(
         MenuItem("Quit",
                  [&]() {

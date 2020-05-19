@@ -6,7 +6,11 @@
  */
 
 #include "SDLContext.h"
-#include "Config/ConfigHandler.h"
+#ifdef __vita__
+  #include "vita/Config/ConfigHandler.h"
+#else
+  #include "Config/ConfigHandler.h"
+#endif
 #include "InputManager.h"
 
 #include <SDL2/SDL.h>

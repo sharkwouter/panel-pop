@@ -10,7 +10,11 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
 
-#include "../Config/ConfigHandler.h"
+#ifdef __vita__
+  #include "../vita/Config/ConfigHandler.h"
+#else
+  #include "../Config/ConfigHandler.h"
+#endif
 #include "../Menus/OptionsMenu.h"
 #include "../Menus/KeyConfigMenu.h"
 #include "StateManager.h"
