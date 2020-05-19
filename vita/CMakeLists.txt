@@ -91,7 +91,6 @@ include_directories(
 
 target_link_libraries(panel-pop
         SDL2
-        SDL2_image
         SDL2_ttf
         SDL2_mixer
         vita2d
@@ -100,7 +99,6 @@ target_link_libraries(panel-pop
         vorbisfile
         vorbis
         ogg
-        jpeg
         z
         m
         mikmod
@@ -125,9 +123,9 @@ vita_create_vpk(panel-pop.vpk ${VITA_TITLEID} panel-pop.self
         FILE ../assets/fonts assets/fonts
         FILE ../assets/music assets/music
         FILE ../assets/sfx assets/sfx
-        FILE ../assets/1p.png assets/1p.png
-        FILE ../assets/2p.png assets/2p.png
-        FILE ../assets/bg1.png assets/bg1.png
-        FILE ../assets/sprites.png assets/sprites.png
-        FILE ../assets/title.png assets/title.png
+        FILE ../assets/1p.bmp assets/1p.bmp
+        FILE ../assets/2p.bmp assets/2p.bmp
+        FILE ../assets/bg1.bmp assets/bg1.bmp
+        FILE ../assets/sprites.bmp assets/sprites.bmp
+        FILE ../assets/title.bmp assets/title.bmp
         )

@@ -16,7 +16,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_events.h>
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
@@ -77,12 +76,6 @@ bool SDLContext::init() {
         success = false;
     }
 
-    int imgFlags = IMG_INIT_PNG;
-    if (!(IMG_Init(imgFlags) & imgFlags)) {
-        std::cout << IMG_GetError();
-        success = false;
-    }
-
     if (TTF_Init() == -1) {
         std::cout << TTF_GetError();
         success = false;
@@ -124,7 +117,7 @@ SDL_Texture *SDLContext::getSpriteSheet() {
 }
 
 bool SDLContext::loadSpriteSheet() {
-    _spriteSheet = makeTextureFromImage("assets/sprites.png");
+    _spriteSheet = makeTextureFromImage("assets/sprites.bmp");
     return _spriteSheet != NULL;
 }
 
@@ -151,9 +144,9 @@ SDL_Texture *SDLContext::makeTextureFromFont(std::string text, SDL_Color color,
 }
 
 SDL_Texture *SDLContext::makeTextureFromImage(std::string path) {
-    SDL_Surface *surface = IMG_Load(path.c_str());
+    SDL_Surface *surface = SDL_LoadBMP(path.c_str());
     if (surface == NULL) {
-        std::cout << IMG_GetError();
+        std::cout << SDL_GetError();
         return nullptr;
     }
     SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
