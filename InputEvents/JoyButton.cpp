@@ -3,7 +3,7 @@
 //
 
 #include <sstream>
-#include <SDL_joystick.h>
+#include <SDL2/SDL_joystick.h>
 #include "JoyButton.h"
 #include "../InputManager.h"
 JoyButton::JoyButton(SDL_JoystickID joystick_id, int button_id)

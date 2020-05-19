@@ -2,7 +2,7 @@
 // Created by axel on 4/19/19.
 //
 
-#include <SDL_keyboard.h>
+#include <SDL2/SDL_keyboard.h>
 #include <sstream>
 #include "KeyboardKey.h"
 

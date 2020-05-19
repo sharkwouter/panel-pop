@@ -20,7 +20,7 @@ set(VITA_VERSION "01.00")
 
 ## Flags and includes for building
 # Note that we make sure not to overwrite previous flags
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 # Optional. You can specify more param.sfo flags this way.
@@ -76,43 +76,30 @@ set(SRCS ${SRCS} Config/ConfigHandler.cpp Config/ConfigHandler.h)
 
 add_executable(panel-pop ${SRCS})
 
-set(VITA_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/")
-set(SDL2_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/SDL2")
-set(PNG_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/libpng16")
-set(FLAC_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/FLAC")
-
-include_directories(
-        ${INCLUDE_DIRECTORIES}
-        ${VITA_INCLUDE_DIR}
-        ${SDL2_INCLUDE_DIR}
-        ${PNG_INCLUDE_DIR}
-        ${FLAC_INCLUDE_DIR}
-        )
-
 target_link_libraries(panel-pop
-        SDL2
-        SDL2_ttf
         SDL2_mixer
-        vita2d
-        png16
+        SDL2_ttf
         freetype
+        png
+        z
+        mpg123
         vorbisfile
         vorbis
         ogg
-        z
-        m
-        mikmod
-        mpg123
         FLAC
-        SceAppUtil_stub
-        SceAudio_stub
-        SceCommonDialog_stub
-        SceCtrl_stub
+        mikmod
+        SDL2
+        vita2d
         SceDisplay_stub
-        SceGxm_stub
-        SceHid_stub
+        SceCtrl_stub
+        SceAudio_stub
+        SceAppUtil_stub
         SceSysmodule_stub
+        SceGxm_stub
+        SceCommonDialog_stub
         SceTouch_stub
+        SceHid_stub
+        m
         )
 vita_create_self(panel-pop.self panel-pop)
 

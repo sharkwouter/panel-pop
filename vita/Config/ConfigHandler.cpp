@@ -89,6 +89,20 @@ InputEvent *ConfigHandler::parseInputEvent(const Button &configKey) {
     } // TODO: handle errors lol
 }
 
+void ConfigHandler::setFullscreen(bool fs) {
+    if (fs != SDLContext::getInstance().isFullscreen()) {
+        SDLContext::getInstance().toggleFullscreen();
+    }
+}
+
+void ConfigHandler::setMusicVolume(int vol) {
+    Mix_VolumeMusic(vol);
+}
+
+void ConfigHandler::setSfxVolume(int vol) {
+    Mix_Volume(-1, vol);
+}
+
 bool ConfigHandler::getFullscreen() {
     return false;
 }

@@ -9,8 +9,8 @@
 #define INPUTMANAGER_H_
 
 #include <vector>
-#include <SDL_joystick.h>
-#include <SDL_events.h>
+#include <SDL2/SDL_joystick.h>
+#include <SDL2/SDL_events.h>
 #include "InputEvents/InputEvent.h"
 #include "Config/InputConfig.h"
 

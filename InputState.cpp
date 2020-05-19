@@ -2,8 +2,8 @@
 // Created by axel on 9/8/18.
 //
 
-#include <SDL_gamecontroller.h>
-#include <SDL_scancode.h>
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_scancode.h>
 #include "InputState.h"
 #include "InputEvents/KeyboardKey.h"
 #include "Config/InputConfig.h"

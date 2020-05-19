@@ -81,7 +81,9 @@ KeyConfigMenu::KeyConfigMenu(OptionsMenuState &state, int player) :
                  0, 0, MenuItem::OptionType::NONE));
 
     addItem(MenuItem("Apply", [&]() {
+#ifndef __vita__
       ConfigHandler::getInstance().setKeyConfig(_newKeyConfig, _player);
+#endif
       ConfigHandler::getInstance().saveConfig();
       _state.goBack();
     }));

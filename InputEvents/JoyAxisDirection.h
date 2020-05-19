@@ -5,7 +5,7 @@
 #ifndef PANEL_POP_INPUTEVENTS_JOYAXISDIRECTION_H_
 #define PANEL_POP_INPUTEVENTS_JOYAXISDIRECTION_H_
 
-#include <SDL_joystick.h>
+#include <SDL2/SDL_joystick.h>
 #include "InputEvent.h"
 class JoyAxisDirection: public InputEvent {
  public:
