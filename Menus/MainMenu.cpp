@@ -68,7 +68,6 @@ void MainMenu::render() const {
         } else {
             text = " " + text;
         }
-        _SDLContext.renderText(text, {0, 0, 0}, _SDLContext._fontPs, x, y);
 
     }
 }

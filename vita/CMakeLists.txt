@@ -76,12 +76,6 @@ set(SRCS ${SRCS} Config/ConfigHandler.cpp Config/ConfigHandler.h)
 
 add_executable(panel-pop ${SRCS})
 
-target_compile_definitions(panel-pop
-        PRIVATE
-        VITA_VERSION="${VITA_VERSION}"
-        VITA_TITLEID="${VITA_TITLEID}"
-        )
-
 target_link_libraries(panel-pop
         SDL2_mixer
         mpg123
@@ -105,8 +99,8 @@ target_link_libraries(panel-pop
         SceHid_stub
         m
         )
-vita_create_self(panel-pop.self panel-pop)
 
+vita_create_self(panel-pop.self panel-pop)
 vita_create_vpk(panel-pop.vpk ${VITA_TITLEID} panel-pop.self
         VERSION ${VITA_VERSION}
         NAME ${VITA_APPNAME}

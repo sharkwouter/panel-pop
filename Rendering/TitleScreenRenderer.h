@@ -21,7 +21,6 @@ class TitleScreenRenderer : public Renderer {
  private:
   TitleScreen &_titleScreen;
   SDL_Texture *_titleImg;
-  SDL_Texture *_versionText;
 };
 
 #endif /* RENDERING_TITLESCREENRENDERER_H_ */

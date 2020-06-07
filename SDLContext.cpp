@@ -28,8 +28,6 @@
 #include <sstream>
 
 SDLContext::SDLContext() :
-    _fontPs(nullptr),
-    _fontSquare(nullptr),
     _musicBgIntro(nullptr),
     _musicBgLoop(nullptr),
     _musicPanic(nullptr),
@@ -76,11 +74,6 @@ bool SDLContext::init() {
         success = false;
     }
 
-    if (TTF_Init() == -1) {
-        std::cout << TTF_GetError();
-        success = false;
-    }
-
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0) {
         std::cout << Mix_GetError();
         success = false;
@@ -122,25 +115,7 @@ bool SDLContext::loadSpriteSheet() {
 }
 
 bool SDLContext::loadFonts() {
-    _fontPs = TTF_OpenFont("assets/fonts/PressStart2P.ttf", 16);
-    _fontSquare = TTF_OpenFont("assets/fonts/square_sans_serif_7.ttf", 48);
-    if (_fontPs == NULL || _fontSquare == NULL) {
-        std::cout << TTF_GetError();
-        return false;
-    }
     return true;
-}
-
-SDL_Texture *SDLContext::makeTextureFromFont(std::string text, SDL_Color color,
-                                             TTF_Font *font) {
-    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
-    if (surface == NULL) {
-        std::cout << TTF_GetError();
-        return NULL;
-    }
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
-    SDL_FreeSurface(surface);
-    return texture;
 }
 
 SDL_Texture *SDLContext::makeTextureFromImage(std::string path) {
@@ -152,15 +127,6 @@ SDL_Texture *SDLContext::makeTextureFromImage(std::string path) {
     SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
     SDL_FreeSurface(surface);
     return texture;
-}
-
-void SDLContext::renderText(std::string text, SDL_Color color, TTF_Font *font,
-                            int x, int y) {
-    SDL_Texture *texture = makeTextureFromFont(text, color, font);
-    SDL_Rect r = {x, y, 0, 0};
-    SDL_QueryTexture(texture, NULL, NULL, &r.w, &r.h);
-    SDL_RenderCopy(_renderer, texture, NULL, &r);
-    SDL_DestroyTexture(texture);
 }
 
 void SDLContext::renderTextureToWindow(SDL_Texture *texture) {

@@ -39,8 +39,6 @@ void PauseMenu::render() const {
     int x = pos.x + 20;
     int y = pos.y + 8;
 
-    _SDLContext.renderText("-PAUSE-", {255, 255, 255}, _SDLContext._fontPs, x,
-                           y);
 
     x = pos.x + 16;
     y += 2;
@@ -53,8 +51,7 @@ void PauseMenu::render() const {
         } else {
             text = " " + text;
         }
-        _SDLContext.renderText(text, {255, 255, 255}, _SDLContext._fontPs, x,
-                               y);
+
     }
 
 }

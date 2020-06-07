@@ -8,8 +8,8 @@
 #ifndef SDLCONTEXT_H_
 #define SDLCONTEXT_H_
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_ttf.h>
 #include <string>
 
 class SDLContext {
@@ -26,11 +26,6 @@ class SDLContext {
   bool isFullscreen();
 
   SDL_Texture *makeTextureFromImage(std::string);
-  SDL_Texture *makeTextureFromFont(std::string, SDL_Color, TTF_Font *);
-  void renderText(std::string, SDL_Color, TTF_Font *, int, int);
-
-  TTF_Font *_fontPs;
-  TTF_Font *_fontSquare;
 
   Mix_Music *_musicBgIntro;
   Mix_Music *_musicBgLoop;
