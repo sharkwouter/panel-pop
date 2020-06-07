@@ -76,12 +76,14 @@ set(SRCS ${SRCS} Config/ConfigHandler.cpp Config/ConfigHandler.h)
 
 add_executable(panel-pop ${SRCS})
 
+target_compile_definitions(panel-pop
+        PRIVATE
+        VITA_VERSION="${VITA_VERSION}"
+        VITA_TITLEID="${VITA_TITLEID}"
+        )
+
 target_link_libraries(panel-pop
         SDL2_mixer
-        SDL2_ttf
-        freetype
-        png
-        z
         mpg123
         vorbisfile
         vorbis
@@ -90,6 +92,8 @@ target_link_libraries(panel-pop
         mikmod
         SDL2
         vita2d
+        stdc++
+        pthread
         SceDisplay_stub
         SceCtrl_stub
         SceAudio_stub
