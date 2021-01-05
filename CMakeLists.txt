@@ -69,6 +69,7 @@ target_link_libraries(panel-pop PRIVATE
         SDL2
         SDL2_ttf
         stdc++
+        pspvram
         ${PSP_LIBRARIES}
         jsoncpp
         vorbisfile
