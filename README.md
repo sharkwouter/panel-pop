@@ -61,7 +61,7 @@ folders into the MinGW installation's respective folders.
 
 #### Playstation Vita
 
-Install the [DolceSDK](https://github.com/DolceSDK/doc) and [this SDL2 fork](https://github.com/isage/SDL-mirror). Then Playstation Vita version can be build.
+Install the [VitaSDK](https://vitasdk.org/). Then Playstation Vita version can be build.
 
-1. ``cmake -DCMAKE_TOOLCHAIN_FILE="${DOLCESDK}/share/dolce.toolchain.cmake" ..``
+1. ``cmake -DCMAKE_TOOLCHAIN_FILE="${VITASDK}/share/vita.toolchain.cmake"``
 2. ``make``
