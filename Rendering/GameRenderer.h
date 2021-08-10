@@ -16,10 +16,10 @@
 class GameRenderer : public Renderer {
  public:
 
-  static const int BOARD0_X = 58;
-  static const int BOARD0_Y = 43;
-  static const int BOARD1_X = 390;
-  static const int BOARD1_Y = 43;
+  static const int BOARD0_X = 44;
+  static const int BOARD0_Y = 24;
+  static const int BOARD1_X = 292;
+  static const int BOARD1_Y = 24;
 
   GameRenderer(Game &);
   virtual ~GameRenderer();

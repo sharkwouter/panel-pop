@@ -23,7 +23,7 @@ EndlessGameRenderer::EndlessGameRenderer(EndlessGame &game) :
     _boardRenderer(_game.getBoard(0)),
     _bShake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, 480, 272);
     _bg = _SDLContext.makeTextureFromImage("assets/bg1.bmp");
     _1pbg = _SDLContext.makeTextureFromImage("assets/1p.bmp");
 }
