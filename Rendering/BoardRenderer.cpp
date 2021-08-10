@@ -19,11 +19,9 @@
 #include "../Game/GarbageBlock.h"
 #include "../SDLContext.h"
 
-const int BoardRenderer::BOARD_WIDTH = 192;
-const int BoardRenderer::BOARD_HEIGHT = 144;
-const int BoardRenderer::TILE_SIZE = 24;
-const int BoardRenderer::TILE_WIDTH = 24;
-const int BoardRenderer::TILE_HEIGHT = 18;
+const int BoardRenderer::BOARD_WIDTH = 96;
+const int BoardRenderer::BOARD_HEIGHT = 192;
+const int BoardRenderer::TILE_SIZE = 16;
 const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
 
 BoardRenderer::BoardRenderer(const Board &board) :
@@ -121,13 +119,13 @@ void BoardRenderer::drawGrid() {
     SDL_SetRenderDrawColor(_SDLRenderer, 0x00, 0x00, 0x00, 0xFF);
 
     for (int i = 0; i < 6; i++) {
-        SDL_RenderDrawLine(_SDLRenderer, i * TILE_WIDTH, 0, i * TILE_WIDTH,
-                           TILE_HEIGHT * 12);
+        SDL_RenderDrawLine(_SDLRenderer, i * TILE_SIZE, 0, i * TILE_SIZE,
+                           TILE_SIZE * 12);
     }
 
     for (int i = 0; i < 12; i++) {
-        SDL_RenderDrawLine(_SDLRenderer, 0, i * TILE_HEIGHT, TILE_WIDTH * 6,
-                           i * TILE_HEIGHT);
+        SDL_RenderDrawLine(_SDLRenderer, 0, i * TILE_SIZE, TILE_SIZE * 6,
+                           i * TILE_SIZE);
     }
 }
 
@@ -141,15 +139,15 @@ void BoardRenderer::drawBlocks() {
     for (int i = 0; i < Board::BOARD_HEIGHT; i++) {
         for (int j = 0; j < Board::BOARD_WIDTH; j++) {
             SDL_Rect pos;
-            pos.h = TILE_HEIGHT;
-            pos.w = TILE_WIDTH;
-            pos.x = j * TILE_WIDTH;
-            pos.y = (BOARD_HEIGHT - (i + 1) * TILE_HEIGHT)
+            pos.h = TILE_SIZE;
+            pos.w = TILE_SIZE;
+            pos.x = j * TILE_SIZE;
+            pos.y = (BOARD_HEIGHT - (i + 1) * TILE_SIZE)
                 - _board.getStackOffset();
             if (_board.getTile(i, j).type == BLOCK) {
                 const Block &block = _board.getTile(i, j).b;
 
-                int xOffset = TILE_WIDTH * (double) block._swapTimer
+                int xOffset = TILE_SIZE * (double) block._swapTimer
                     / _board.SWAP_DELAY;
                 if (block._state == SWAPPING_RIGHT) {
                     pos.x += xOffset;
@@ -168,23 +166,23 @@ void BoardRenderer::drawBlocks() {
                     int px;
                     if (_board.getStackRaiseTicks() == 0) {
                         if (_board.getState() == Board::GAME_OVER) {
-                            px = TILE_WIDTH;
+                            px = TILE_SIZE;
                         } else {
                             px = 0;
                         }
                     } else {
                         px =
-                            _board.getGraceTimer() * TILE_WIDTH
-                                / ((TILE_WIDTH
+                            _board.getGraceTimer() * TILE_SIZE
+                                / ((TILE_SIZE
                                     * _board.getStackRaiseTicks())
                                     / 2);
                     }
-                    if (px > TILE_WIDTH) {
-                        px = TILE_WIDTH;
+                    if (px > TILE_SIZE) {
+                        px = TILE_SIZE;
                     }
 
-                    SDL_Rect top = {sheet.x, sheet.y, sheet.w, TILE_HEIGHT - px};
-                    SDL_Rect bottom = {sheet.x, sheet.y + (TILE_HEIGHT - px),
+                    SDL_Rect top = {sheet.x, sheet.y, sheet.w, TILE_SIZE - px};
+                    SDL_Rect bottom = {sheet.x, sheet.y + (TILE_SIZE - px),
                                        sheet.w, px};
                     pos.h = top.h;
                     SDL_RenderCopy(_SDLRenderer, _spriteSheet, &top, &pos);
@@ -213,16 +211,16 @@ void BoardRenderer::drawBlocks() {
 
 SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
     SDL_Rect sprite;
-    sprite.w = TILE_WIDTH;
-    sprite.h = TILE_HEIGHT;
+    sprite.w = TILE_SIZE;
+    sprite.h = TILE_SIZE;
     switch (block._color) {
-        case BlockColor::CYAN: sprite.x = 48;
+        case BlockColor::CYAN: sprite.x = 32;
             break;
-        case BlockColor::GREEN: sprite.x = 24;
+        case BlockColor::GREEN: sprite.x = 16;
             break;
-        case BlockColor::PURPLE: sprite.x = 72;
+        case BlockColor::PURPLE: sprite.x = 48;
             break;
-        case BlockColor::RED: sprite.x = 96;
+        case BlockColor::RED: sprite.x = 64;
             break;
         case BlockColor::YELLOW: sprite.x = 0;
             break;
@@ -233,15 +231,15 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
             if (block._explosionTimer % 2 == 0) {
                 sprite.y = 0;
             } else {
-                sprite.y = 91;
+                sprite.y = 80;
             }
         } else {
             if (block._explosionTimer < block._explosionAnimTicks) {
-                sprite.y = 72;
+                sprite.y = 64;
             }
         }
     } else if (_board.getState() == Board::GAME_OVER) {
-        sprite.y = 72;
+        sprite.y = 64;
     } else {
         sprite.y = 0;
     }
@@ -252,8 +250,8 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
 SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
                                               const GarbageBlock &b) {
     SDL_Rect sprite;
-    sprite.w = TILE_WIDTH;
-    sprite.h = TILE_HEIGHT;
+    sprite.w = TILE_SIZE;
+    sprite.h = TILE_SIZE;
     sprite.y = 0;
     int h = b.getH();
     //handle transforming block as one smaller (after blinking)
@@ -273,9 +271,9 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = 168 + t * TILE_WIDTH;
+        sprite.x = 112 + t * TILE_SIZE;
         if (blink) {
-            sprite.y += TILE_HEIGHT;
+            sprite.y += TILE_SIZE;
         }
         return sprite;
     } else {
@@ -287,10 +285,10 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = 240 + t * TILE_WIDTH;
-        sprite.y = 0 + u * TILE_HEIGHT;
+        sprite.x = 160 + t * TILE_SIZE;
+        sprite.y = 0 + u * TILE_SIZE;
         if (blink) {
-            sprite.y += 3 * TILE_HEIGHT;
+            sprite.y += 3 * TILE_SIZE;
         }
         return sprite;
     }
@@ -304,9 +302,9 @@ void BoardRenderer::drawBufferRow() {
         SDL_Rect sheet = getBlockSprite(block);
 
         SDL_Rect pos;
-        pos.h = TILE_HEIGHT;
-        pos.w = TILE_WIDTH;
-        pos.x = i * TILE_WIDTH;
+        pos.h = TILE_SIZE;
+        pos.w = TILE_SIZE;
+        pos.x = i * TILE_SIZE;
         pos.y = (BOARD_HEIGHT) - _board.getStackOffset();
 
         if (_board.getWarnColumn(i) && !_board.hasActiveBlocks()) {
@@ -336,10 +334,10 @@ void BoardRenderer::drawGarbageBlocks() {
         for (int y = it->getY() - (it->getH() - 1); y <= it->getY(); ++y) {
             for (int x = it->getX() + (it->getW() - 1); x >= it->getX(); --x) {
                 SDL_Rect pos;
-                pos.h = TILE_HEIGHT;
-                pos.w = TILE_WIDTH;
-                pos.x = x * TILE_WIDTH;
-                pos.y = ((BOARD_HEIGHT - (y + 1) * TILE_HEIGHT)
+                pos.h = TILE_SIZE;
+                pos.w = TILE_SIZE;
+                pos.x = x * TILE_SIZE;
+                pos.y = ((BOARD_HEIGHT - (y + 1) * TILE_SIZE)
                     - _board.getStackOffset()) + warnOffset;
 
                 //lower right corner is 0,0
@@ -427,13 +425,13 @@ void BoardRenderer::drawGarbageBlocks() {
 }
 
 void BoardRenderer::drawCursor() {
-    SDL_Rect sprite = {224, 64, 76, 44};
+    SDL_Rect sprite = {112, 32, 38, 22};
     if (_board.getTicksRun() % (2 * CURSOR_ANIM_TICKS) >= CURSOR_ANIM_TICKS) {
-        sprite.y += 44;
+        sprite.y += 22;
     }
-    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - 6, (BOARD_HEIGHT
+    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - 3, (BOARD_HEIGHT
         - (_board.getCursorY() + 1) * TILE_SIZE) - _board.getStackOffset()
-        - 6, 76, 44};
+        - 3, 38, 22};
     SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
 }
 
