@@ -21,9 +21,9 @@ class VsGameRenderer : public GameRenderer {
   void tick();
   SDL_Texture *renderGame();
 
-  static const int BOARD0_X = 108;
+  static const int BOARD0_X = 109;
   static const int BOARD0_Y = 38;
-  static const int BOARD1_X = 274;
+  static const int BOARD1_X = 275;
   static const int BOARD1_Y = 38;
 
   void shakeBoard(int id, int duration);

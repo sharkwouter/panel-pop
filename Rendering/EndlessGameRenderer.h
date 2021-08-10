@@ -21,7 +21,7 @@ class EndlessGameRenderer : public GameRenderer {
   void tick();
   SDL_Texture *renderGame();
 
-  static const int BOARD0_X = 108;
+  static const int BOARD0_X = 109;
   static const int BOARD0_Y = 38;
 
   void shakeBoard(int id, int duration);
