@@ -22,6 +22,8 @@
 const int BoardRenderer::BOARD_WIDTH = 192;
 const int BoardRenderer::BOARD_HEIGHT = 144;
 const int BoardRenderer::TILE_SIZE = 24;
+const int BoardRenderer::TILE_WIDTH = 24;
+const int BoardRenderer::TILE_HEIGHT = 18;
 const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
 
 BoardRenderer::BoardRenderer(const Board &board) :
@@ -119,13 +121,13 @@ void BoardRenderer::drawGrid() {
     SDL_SetRenderDrawColor(_SDLRenderer, 0x00, 0x00, 0x00, 0xFF);
 
     for (int i = 0; i < 6; i++) {
-        SDL_RenderDrawLine(_SDLRenderer, i * TILE_SIZE, 0, i * TILE_SIZE,
-                           TILE_SIZE * 12);
+        SDL_RenderDrawLine(_SDLRenderer, i * TILE_WIDTH, 0, i * TILE_WIDTH,
+                           TILE_HEIGHT * 12);
     }
 
     for (int i = 0; i < 12; i++) {
-        SDL_RenderDrawLine(_SDLRenderer, 0, i * TILE_SIZE, TILE_SIZE * 6,
-                           i * TILE_SIZE);
+        SDL_RenderDrawLine(_SDLRenderer, 0, i * TILE_HEIGHT, TILE_WIDTH * 6,
+                           i * TILE_HEIGHT);
     }
 }
 
@@ -139,15 +141,15 @@ void BoardRenderer::drawBlocks() {
     for (int i = 0; i < Board::BOARD_HEIGHT; i++) {
         for (int j = 0; j < Board::BOARD_WIDTH; j++) {
             SDL_Rect pos;
-            pos.h = TILE_SIZE;
-            pos.w = TILE_SIZE;
-            pos.x = j * TILE_SIZE;
-            pos.y = (BOARD_HEIGHT - (i + 1) * TILE_SIZE)
+            pos.h = TILE_HEIGHT;
+            pos.w = TILE_WIDTH;
+            pos.x = j * TILE_WIDTH;
+            pos.y = (BOARD_HEIGHT - (i + 1) * TILE_HEIGHT)
                 - _board.getStackOffset();
             if (_board.getTile(i, j).type == BLOCK) {
                 const Block &block = _board.getTile(i, j).b;
 
-                int xOffset = TILE_SIZE * (double) block._swapTimer
+                int xOffset = TILE_WIDTH * (double) block._swapTimer
                     / _board.SWAP_DELAY;
                 if (block._state == SWAPPING_RIGHT) {
                     pos.x += xOffset;
@@ -166,23 +168,23 @@ void BoardRenderer::drawBlocks() {
                     int px;
                     if (_board.getStackRaiseTicks() == 0) {
                         if (_board.getState() == Board::GAME_OVER) {
-                            px = TILE_SIZE;
+                            px = TILE_WIDTH;
                         } else {
                             px = 0;
                         }
                     } else {
                         px =
-                            _board.getGraceTimer() * TILE_SIZE
-                                / ((TILE_SIZE
+                            _board.getGraceTimer() * TILE_WIDTH
+                                / ((TILE_WIDTH
                                     * _board.getStackRaiseTicks())
                                     / 2);
                     }
-                    if (px > TILE_SIZE) {
-                        px = TILE_SIZE;
+                    if (px > TILE_WIDTH) {
+                        px = TILE_WIDTH;
                     }
 
-                    SDL_Rect top = {sheet.x, sheet.y, sheet.w, TILE_SIZE - px};
-                    SDL_Rect bottom = {sheet.x, sheet.y + (TILE_SIZE - px),
+                    SDL_Rect top = {sheet.x, sheet.y, sheet.w, TILE_HEIGHT - px};
+                    SDL_Rect bottom = {sheet.x, sheet.y + (TILE_HEIGHT - px),
                                        sheet.w, px};
                     pos.h = top.h;
                     SDL_RenderCopy(_SDLRenderer, _spriteSheet, &top, &pos);
@@ -211,8 +213,8 @@ void BoardRenderer::drawBlocks() {
 
 SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
     SDL_Rect sprite;
-    sprite.w = TILE_SIZE;
-    sprite.h = TILE_SIZE;
+    sprite.w = TILE_WIDTH;
+    sprite.h = TILE_HEIGHT;
     switch (block._color) {
         case BlockColor::CYAN: sprite.x = 48;
             break;
@@ -250,8 +252,8 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
 SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
                                               const GarbageBlock &b) {
     SDL_Rect sprite;
-    sprite.w = TILE_SIZE;
-    sprite.h = TILE_SIZE;
+    sprite.w = TILE_WIDTH;
+    sprite.h = TILE_HEIGHT;
     sprite.y = 0;
     int h = b.getH();
     //handle transforming block as one smaller (after blinking)
@@ -271,9 +273,9 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = 168 + t * TILE_SIZE;
+        sprite.x = 168 + t * TILE_WIDTH;
         if (blink) {
-            sprite.y += TILE_SIZE;
+            sprite.y += TILE_HEIGHT;
         }
         return sprite;
     } else {
@@ -285,10 +287,10 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = 240 + t * TILE_SIZE;
-        sprite.y = 0 + u * TILE_SIZE;
+        sprite.x = 240 + t * TILE_WIDTH;
+        sprite.y = 0 + u * TILE_HEIGHT;
         if (blink) {
-            sprite.y += 3 * TILE_SIZE;
+            sprite.y += 3 * TILE_HEIGHT;
         }
         return sprite;
     }
@@ -302,9 +304,9 @@ void BoardRenderer::drawBufferRow() {
         SDL_Rect sheet = getBlockSprite(block);
 
         SDL_Rect pos;
-        pos.h = TILE_SIZE;
-        pos.w = TILE_SIZE;
-        pos.x = i * TILE_SIZE;
+        pos.h = TILE_HEIGHT;
+        pos.w = TILE_WIDTH;
+        pos.x = i * TILE_WIDTH;
         pos.y = (BOARD_HEIGHT) - _board.getStackOffset();
 
         if (_board.getWarnColumn(i) && !_board.hasActiveBlocks()) {
@@ -334,10 +336,10 @@ void BoardRenderer::drawGarbageBlocks() {
         for (int y = it->getY() - (it->getH() - 1); y <= it->getY(); ++y) {
             for (int x = it->getX() + (it->getW() - 1); x >= it->getX(); --x) {
                 SDL_Rect pos;
-                pos.h = TILE_SIZE;
-                pos.w = TILE_SIZE;
-                pos.x = x * TILE_SIZE;
-                pos.y = ((BOARD_HEIGHT - (y + 1) * TILE_SIZE)
+                pos.h = TILE_HEIGHT;
+                pos.w = TILE_WIDTH;
+                pos.x = x * TILE_WIDTH;
+                pos.y = ((BOARD_HEIGHT - (y + 1) * TILE_HEIGHT)
                     - _board.getStackOffset()) + warnOffset;
 
                 //lower right corner is 0,0
