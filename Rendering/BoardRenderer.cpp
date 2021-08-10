@@ -20,9 +20,9 @@
 #include "../SDLContext.h"
 
 const int BoardRenderer::BOARD_WIDTH = 192;
-const int BoardRenderer::BOARD_HEIGHT = 384;
+const int BoardRenderer::BOARD_HEIGHT = 144;
 const int BoardRenderer::TILE_SIZE = 24;
-const int BoardRenderer::CURSOR_ANIM_TICKS = 24;
+const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
 
 BoardRenderer::BoardRenderer(const Board &board) :
     _board(board) {

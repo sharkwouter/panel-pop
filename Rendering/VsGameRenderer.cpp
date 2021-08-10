@@ -32,7 +32,7 @@ VsGameRenderer::VsGameRenderer(VsGame &game) :
     _b0Shake(0),
     _b1Shake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, 480, 272);
     _bg = _SDLContext.makeTextureFromImage("assets/bg1.bmp");
     _2pbg = _SDLContext.makeTextureFromImage("assets/2p.bmp");
     SDL_SetTextureBlendMode(_2pbg, SDL_BLENDMODE_BLEND);

@@ -48,8 +48,8 @@ MainMenu::~MainMenu() {
 
 void MainMenu::render() const {
 
-    int x = 311;
-    int y = 200;
+    int x = 233;
+    int y = 100;
 
     for (unsigned i = 0; i < _items.size(); ++i) {
         y += 18;
