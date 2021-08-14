@@ -18,7 +18,12 @@ class ConfigHandler {
 
   static ConfigHandler &getInstance();
 
-  const char *CONFIG_FILENAME = "panelpop.json";
+  const std::string CONFIG_FILENAME = "panelpop.json";
+  #ifdef __vita__
+    const std::string CONFIG_DIR = "ux0:/data/panel-pop/";
+  #else
+    const std::string CONFIG_DIR = "./";
+  #endif
   bool loadConfig();
   bool saveConfig();
 

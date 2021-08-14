@@ -21,6 +21,9 @@
 #include <json/json.h>
 #include <fstream>
 
+#ifdef __vita__
+    #include <psp2/kernel/iofilemgr.h>
+#endif
 
 ConfigHandler::ConfigHandler() {
 }
@@ -31,7 +34,16 @@ ConfigHandler &ConfigHandler::getInstance() {
 }
 
 bool ConfigHandler::loadConfig() {
-    std::ifstream configFile(CONFIG_FILENAME);
+    std::ifstream configFile;
+    std::string configPath = CONFIG_DIR + CONFIG_FILENAME;
+    configFile.open(configPath, std::ios::in);
+    #ifdef __vita__
+        if (!configFile) {
+            sceIoMkdir(CONFIG_DIR.c_str(), 0777);
+            configPath = "app0:/" + CONFIG_FILENAME;
+            configFile.open(configPath, std::ios::in);
+        }
+    #endif
     Json::CharReaderBuilder builder;
     JSONCPP_STRING errs;
     if (!parseFromStream(builder, configFile, &_settingsTree, &errs)) {
@@ -45,7 +57,8 @@ bool ConfigHandler::loadConfig() {
 }
 
 bool ConfigHandler::saveConfig() {
-    std::ofstream configFile(CONFIG_FILENAME, std::ios::binary);
+    std::string configPath = CONFIG_DIR + CONFIG_FILENAME;
+    std::ofstream configFile(configPath, std::ios::binary);
     configFile << _settingsTree;
     configFile.close();
     return true;
