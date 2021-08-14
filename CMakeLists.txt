@@ -106,3 +106,5 @@ target_link_libraries(panel-pop ${SDL2_LIBRARY}
         ${SDL2_MIXER_LIBRARIES}
         jsoncpp)
 endif()
+file(COPY panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
