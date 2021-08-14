@@ -65,8 +65,12 @@ bool ConfigHandler::saveConfig() {
 }
 
 InputConfig ConfigHandler::getKeyConfig(int player) {
-
-    auto prefix = "p" + std::to_string(player) + "_";
+    #ifdef __PSP__
+        std::string playerString = "0";
+    #else
+        std::string playerString = std::to_string(player);
+    #endif
+    auto prefix = "p" + playerString + "_";
     return InputConfig(parseInputEvent(prefix + "up"),
                        parseInputEvent(prefix + "down"),
                        parseInputEvent(prefix + "left"),
@@ -86,22 +90,22 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
         case 'J': {
             auto jidEnd = value.find('_', 1);
             auto jidStr = value.substr(1, jidEnd - 1);
-            int joystickId = std::stoi(jidStr);
+            int joystickId = atoi(jidStr.c_str());
             char eventType = value[jidEnd + 1];
             switch (eventType) {
                 case 'B': {
-                    int buttonId = std::stoi(value.substr(jidEnd + 2));
+                    int buttonId = atoi(value.substr(jidEnd + 2).c_str());
                     return new JoyButton(joystickId, buttonId);
                 }
                 case 'H': {
                     int hidEnd = value.find('_', jidEnd + 1);
-                    int hatId = std::stoi(value.substr(jidEnd + 2, (hidEnd - 1 - (jidEnd + 1))));
-                    int hatDir = std::stoi(value.substr(hidEnd + 1));
+                    int hatId = atoi(value.substr(jidEnd + 2, (hidEnd - 1 - (jidEnd + 1))).c_str());
+                    int hatDir = atoi(value.substr(hidEnd + 1).c_str());
                     return new JoyHat(joystickId, hatId, hatDir);
                 }
                 case 'A': {
                     int aidEnd = value.find('_', jidEnd + 1);
-                    int axisId = std::stoi(value.substr(jidEnd + 2, (aidEnd - 1 - (jidEnd + 1))));
+                    int axisId = atoi(value.substr(jidEnd + 2, (aidEnd - 1 - (jidEnd + 1))).c_str());
                     JoyAxisDirection::Direction
                         axisDir = value[aidEnd + 1] == '+' ? JoyAxisDirection::POSITIVE : JoyAxisDirection::NEGATIVE;
                     return new JoyAxisDirection(joystickId, axisId, axisDir);
@@ -113,7 +117,12 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
 
 void ConfigHandler::setKeyConfig(InputConfig config, int player) {
     StateManager::getInstance().setKeys(config, player);
-    auto prefix = "p" + std::to_string(player) + "_";
+    #ifdef __PSP__
+        std::string playerString = "0";
+    #else
+        std::string playerString = std::to_string(player);
+    #endif
+    auto prefix = "p" + playerString + "_";
     _settingsTree["keys"][prefix + "up"] = config._up->toString();
     _settingsTree["keys"][prefix + "down"] = config._down->toString();
     _settingsTree["keys"][prefix + "left"] = config._left->toString();
