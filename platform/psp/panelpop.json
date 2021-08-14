@@ -1,0 +1,25 @@
+{
+	"audio" : 
+	{
+		"music_volume" : 128,
+		"sfx_volume" : 128
+	},
+	"endless" : 
+	{
+		"high_score" : 0
+	},
+	"keys" : 
+	{
+		"down" : "J0_B6",
+		"left" : "J0_B7",
+		"raiseStack" : "J0_B3",
+		"right" : "J0_B9",
+		"start" : "J0_B11",
+		"swap" : "J0_B2",
+		"up" : "J0_B8"
+	},
+	"video" : 
+	{
+		"fullscreen" : false
+	}
+}
