@@ -72,7 +72,7 @@ class Board {
   static const int PANIC_HEIGHT = 9;
   static const int WARN_HEIGHT = 10;
   static const int FLOAT_TICKS = 12;
-  static const int STACK_RAISE_STEPS = 32;
+  static const int STACK_RAISE_STEPS = 16;
   static const int COUNTDOWN_TICKS = 188;
 
   bool hasActiveBlocks() const;
