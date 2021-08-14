@@ -16,7 +16,7 @@
 #include "SDLContext.h"
 #include "States/StateManager.h"
 
-int main(int argc, char *args[]) {
+int gameLoop(int argc, char *args[]) {
     srand(time(NULL));
     SDLContext &SDL = SDLContext::getInstance();
     ConfigHandler &configHandler = ConfigHandler::getInstance();
@@ -32,3 +32,16 @@ int main(int argc, char *args[]) {
 
     return 0;
 }
+
+#ifdef __PSP__
+extern "C"
+{
+    int SDL_main(int argc, char *argv[]) {
+        return gameLoop(argc, argv);
+    }
+}
+#else
+int main(int argc, char *argv[]) {
+    return gameLoop(argc, argv);
+}
+#endif
