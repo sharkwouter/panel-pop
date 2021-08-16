@@ -353,21 +353,21 @@ void BoardRenderer::drawGarbageBlocks() {
         pos.x = it->getX() * TILE_SIZE;
         pos.y = ((BOARD_HEIGHT - (it->getY() + 1) * TILE_SIZE)
             - _board.getStackOffset()) + warnOffset;
-        pos.w = 64;
-        pos.h = 24;
+        pos.w = TILE_SIZE * 2;
+        pos.h = TILE_SIZE * 0.75;
         SDL_Rect sprite;
-        sprite.x = 416;
-        sprite.w = 64;
-        sprite.h = 24;
+        sprite.x = TILE_SIZE * 13;
+        sprite.w = TILE_SIZE * 2;
+        sprite.h = TILE_SIZE * 0.75;
         bool blink = it->getTransformationTimer() % 2 != 0
             && it->getTransformationTimer() <= BLINK_TIME;
         if (it->getState() == GarbageBlockState::NORMAL
             || it->getTransformationTimer() > BLINK_TIME) {
             sprite.y = 4; //normal face
         } else if (!blink) {
-            sprite.y = 32;
+            sprite.y = TILE_SIZE;
         } else {
-            sprite.y = 64;
+            sprite.y = TILE_SIZE * 2;
         }
 
         int h = it->getH();
@@ -412,7 +412,7 @@ void BoardRenderer::drawGarbageBlocks() {
                     }
                 } else if (it->getTransformationTimer() > BLINK_TIME) {
                     //transforming block
-                    SDL_Rect sprite = {480, 0, TILE_SIZE, TILE_SIZE};
+                    SDL_Rect sprite = {TILE_SIZE * 15, 0, TILE_SIZE, TILE_SIZE};
                     SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
                 }
             }
@@ -422,13 +422,13 @@ void BoardRenderer::drawGarbageBlocks() {
 }
 
 void BoardRenderer::drawCursor() {
-    SDL_Rect sprite = {224, 64, 76, 44};
+    SDL_Rect sprite = {CURSOR_SPRITE_X, CURSOR_SPRITE_Y, CURSOR_WIDTH, CURSOR_HEIGHT};
     if (_board.getTicksRun() % (2 * CURSOR_ANIM_TICKS) >= CURSOR_ANIM_TICKS) {
-        sprite.y += 44;
+        sprite.y += CURSOR_HEIGHT;
     }
-    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - 6, (BOARD_HEIGHT
+    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - CURSOR_OFFSET, (BOARD_HEIGHT
         - (_board.getCursorY() + 1) * TILE_SIZE) - _board.getStackOffset()
-        - 6, 76, 44};
+        - CURSOR_OFFSET, CURSOR_WIDTH, CURSOR_HEIGHT};
     SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
 }
 

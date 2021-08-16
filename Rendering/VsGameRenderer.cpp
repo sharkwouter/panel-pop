@@ -95,7 +95,7 @@ SDL_Texture *VsGameRenderer::renderGame() {
 void VsGameRenderer::renderStatsText() {
 //time
 
-    renderGameTime(280, 218);
+    renderGameTime(VERSUS_TIME_X, VERSUS_TIME_Y);
 
 //points
     std::ostringstream os;
@@ -103,7 +103,7 @@ void VsGameRenderer::renderStatsText() {
        << ' ' << std::setw(2) << std::setfill('0') << _game.getP2Points()
        << "\u25b6";
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           264, 180);
+                           VERSUS_POINTS_X, VERSUS_POINTS_Y);
 }
 
 void VsGameRenderer::renderMatchPoints() {

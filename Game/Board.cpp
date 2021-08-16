@@ -18,7 +18,7 @@ Board::Board() :
     _cursorY(5),
     _tickMatched(0),
     _stackOffset(0),
-    _stackRaiseTicks(10),
+    _stackRaiseTicks(STACK_RAISE_TICKS_START),
     _stackRaiseTimer(0),
     _stackRaiseForced(false),
     _graceTimer(0),
