@@ -12,14 +12,10 @@
 
 #include "../Game/Game.h"
 #include "Particle.h"
+#include "../scale.h"
 
 class GameRenderer : public Renderer {
  public:
-
-  static const int BOARD0_X = 58;
-  static const int BOARD0_Y = 43;
-  static const int BOARD1_X = 390;
-  static const int BOARD1_Y = 43;
 
   GameRenderer(Game &);
   virtual ~GameRenderer();

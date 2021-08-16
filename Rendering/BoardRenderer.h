@@ -12,10 +12,11 @@
 
 #include "../Game/Board.h"
 #include "Popup.h"
+#include "../scale.h"
 
 class BoardRenderer : public Renderer {
  public:
-  static const int BOARD_WIDTH, BOARD_HEIGHT, TILE_SIZE, CURSOR_ANIM_TICKS;
+  static const int CURSOR_ANIM_TICKS;
   static const int BLINK_TIME = 45;
 
   BoardRenderer(const Board &);

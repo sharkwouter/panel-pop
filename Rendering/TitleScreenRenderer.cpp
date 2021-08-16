@@ -20,7 +20,7 @@
 TitleScreenRenderer::TitleScreenRenderer(TitleScreen &ts) :
     _titleScreen(ts) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
     _titleImg = _SDLContext.makeTextureFromImage("assets/title.png");
     _versionText = _SDLContext.makeTextureFromFont(PANELPOP_VERSION,
                                                    {0, 0, 0}, _SDLContext._fontPs);

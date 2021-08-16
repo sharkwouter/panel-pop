@@ -10,6 +10,7 @@
 
 #include "BoardRenderer.h"
 #include "GameRenderer.h"
+#include "../scale.h"
 
 class EndlessGame;
 
@@ -20,9 +21,6 @@ class EndlessGameRenderer : public GameRenderer {
 
   void tick();
   SDL_Texture *renderGame();
-
-  static const int BOARD0_X = 58;
-  static const int BOARD0_Y = 43;
 
   void shakeBoard(int id, int duration);
 

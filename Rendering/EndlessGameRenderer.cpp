@@ -23,7 +23,7 @@ EndlessGameRenderer::EndlessGameRenderer(EndlessGame &game) :
     _boardRenderer(_game.getBoard(0)),
     _bShake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
     _bg = _SDLContext.makeTextureFromImage("assets/bg1.png");
     _1pbg = _SDLContext.makeTextureFromImage("assets/1p.png");
 }
@@ -79,8 +79,8 @@ void EndlessGameRenderer::renderBoard() {
     SDL_Rect pos;
     double shake;
     SDL_Texture *boardTexture;
-    pos.h = BoardRenderer::BOARD_HEIGHT;
-    pos.w = BoardRenderer::BOARD_WIDTH;
+    pos.h = BOARD_HEIGHT;
+    pos.w = BOARD_WIDTH;
 
     pos.x = BOARD0_X;
     pos.y = BOARD0_Y;
@@ -88,8 +88,8 @@ void EndlessGameRenderer::renderBoard() {
     boardTexture = _boardRenderer.renderBoard();
 
     int shakeOffset = .5 * shake * sin(shake);
-    SDL_Rect src = {0, 0, BoardRenderer::BOARD_WIDTH,
-                    BoardRenderer::BOARD_HEIGHT};
+    SDL_Rect src = {0, 0, BOARD_WIDTH,
+                    BOARD_HEIGHT};
 
     if (shakeOffset >= 0) {
         pos.y += shakeOffset;

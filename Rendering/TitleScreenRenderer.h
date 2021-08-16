@@ -9,6 +9,7 @@
 #define RENDERING_TITLESCREENRENDERER_H_
 
 #include "Renderer.h"
+#include "../scale.h"
 
 class TitleScreen;
 

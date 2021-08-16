@@ -672,13 +672,13 @@ void Board::raiseStack() {
         return;
     }
     //raise the stack one step
-    if (_stackOffset < STACK_RAISE_STEPS && !_activeBlocks && !_blockOnTopRow) {
+    if (_stackOffset < TILE_SIZE && !_activeBlocks && !_blockOnTopRow) {
         ++_stackOffset;
         _stackRaiseTimer = 0;
     }
     //when blocks are on top row
     if (_blockOnTopRow && !_activeBlocks) {
-        if (++_graceTimer >= (STACK_RAISE_STEPS * _stackRaiseTicks) / 2) {
+        if (++_graceTimer >= (TILE_SIZE * _stackRaiseTicks) / 2) {
             _state = GAME_OVER;
         }
     }
@@ -687,7 +687,7 @@ void Board::raiseStack() {
     }
 
     //shift up the blocks and buffer row
-    if (_stackOffset >= STACK_RAISE_STEPS) {
+    if (_stackOffset >= TILE_SIZE) {
         if (!_blockOnTopRow && !_activeBlocks) {
             for (auto it = _garbageBlocks.begin(); it != _garbageBlocks.end();
                  ++it) {

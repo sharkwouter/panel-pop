@@ -19,9 +19,6 @@
 #include "../Game/GarbageBlock.h"
 #include "../SDLContext.h"
 
-const int BoardRenderer::BOARD_WIDTH = 192;
-const int BoardRenderer::BOARD_HEIGHT = 384;
-const int BoardRenderer::TILE_SIZE = 32;
 const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
 
 BoardRenderer::BoardRenderer(const Board &board) :
@@ -214,13 +211,13 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
     sprite.w = TILE_SIZE;
     sprite.h = TILE_SIZE;
     switch (block._color) {
-        case BlockColor::CYAN: sprite.x = 64;
+        case BlockColor::CYAN: sprite.x = TILE_SIZE*2;
             break;
-        case BlockColor::GREEN: sprite.x = 32;
+        case BlockColor::GREEN: sprite.x = TILE_SIZE;
             break;
-        case BlockColor::PURPLE: sprite.x = 96;
+        case BlockColor::PURPLE: sprite.x = TILE_SIZE*3;
             break;
-        case BlockColor::RED: sprite.x = 128;
+        case BlockColor::RED: sprite.x = TILE_SIZE*4;
             break;
         case BlockColor::YELLOW: sprite.x = 0;
             break;

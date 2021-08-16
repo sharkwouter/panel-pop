@@ -32,7 +32,7 @@ VsGameRenderer::VsGameRenderer(VsGame &game) :
     _b0Shake(0),
     _b1Shake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
     _bg = _SDLContext.makeTextureFromImage("assets/bg1.png");
     _2pbg = _SDLContext.makeTextureFromImage("assets/2p.png");
     SDL_SetTextureBlendMode(_2pbg, SDL_BLENDMODE_BLEND);
@@ -158,8 +158,8 @@ void VsGameRenderer::renderBoard(int id) {
     SDL_Rect pos;
     double shake;
     SDL_Texture *boardTexture;
-    pos.h = BoardRenderer::BOARD_HEIGHT;
-    pos.w = BoardRenderer::BOARD_WIDTH;
+    pos.h = BOARD_HEIGHT;
+    pos.w = BOARD_WIDTH;
     if (id == 0) {
         pos.x = BOARD0_X;
         pos.y = BOARD0_Y;
@@ -173,8 +173,8 @@ void VsGameRenderer::renderBoard(int id) {
     }
 
     int shakeOffset = .5 * shake * sin(shake);
-    SDL_Rect src = {0, 0, BoardRenderer::BOARD_WIDTH,
-                    BoardRenderer::BOARD_HEIGHT};
+    SDL_Rect src = {0, 0, BOARD_WIDTH,
+                    BOARD_HEIGHT};
 
     if (shakeOffset >= 0) {
         pos.y += shakeOffset;
