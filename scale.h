@@ -13,7 +13,7 @@
     const int WINDOW_WIDTH = 480;
     const int WINDOW_HEIGHT = 272;
     const int FONT_SIZE = 8;
-    const int FONT_MENU_SIZE = 48;
+    const int FONT_MENU_SIZE = 24;
 
     const int BOARD0_X = 109;
     const int BOARD0_Y = 38;

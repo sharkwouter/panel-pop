@@ -228,15 +228,15 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
             if (block._explosionTimer % 2 == 0) {
                 sprite.y = 0;
             } else {
-                sprite.y = 160;
+                sprite.y = 5 * TILE_SIZE;
             }
         } else {
             if (block._explosionTimer < block._explosionAnimTicks) {
-                sprite.y = 128;
+                sprite.y = 4 * TILE_SIZE;
             }
         }
     } else if (_board.getState() == Board::GAME_OVER) {
-        sprite.y = 128;
+        sprite.y = 4 * TILE_SIZE;
     } else {
         sprite.y = 0;
     }
@@ -268,7 +268,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = 224 + t * TILE_SIZE;
+        sprite.x = (7 + t) * TILE_SIZE;
         if (blink) {
             sprite.y += TILE_SIZE;
         }
@@ -282,7 +282,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = 320 + t * TILE_SIZE;
+        sprite.x = (10 + t) * TILE_SIZE;
         sprite.y = 0 + u * TILE_SIZE;
         if (blink) {
             sprite.y += 3 * TILE_SIZE;
