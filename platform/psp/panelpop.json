@@ -1,14 +1,14 @@
 {
-	"audio" : 
+	"audio" :
 	{
 		"music_volume" : 128,
 		"sfx_volume" : 128
 	},
-	"endless" : 
+	"endless" :
 	{
 		"high_score" : 0
 	},
-	"keys" : 
+	"keys" :
 	{
 		"p1_down" : "J0_B6",
 		"p1_left" : "J0_B7",
