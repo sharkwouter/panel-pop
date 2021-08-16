@@ -53,6 +53,7 @@ set(SRCS
         Menus/PauseMenu.cpp
         Menus/MenuItem.cpp
         Menus/Menu.cpp
+        scale.h
         InputState.cpp InputState.h InputEvents/InputEvent.cpp InputEvents/InputEvent.h InputEvents/KeyboardKey.cpp InputEvents/KeyboardKey.h Config/InputConfig.cpp Config/InputConfig.h InputEvents/JoyButton.cpp InputEvents/JoyButton.h InputEvents/JoyHat.cpp InputEvents/JoyHat.h InputEvents/JoyAxisDirection.cpp InputEvents/JoyAxisDirection.h)
 
 add_executable(panel-pop ${SRCS})
@@ -139,6 +140,43 @@ if (VITA)
 		    FILE assets/sprites.png assets/sprites.png
 		    FILE assets/title.png assets/title.png
 	)
+ELSEIF(PLATFORM_PSP)
+	include_directories(
+		${PSPDEV}/psp/include/SDL2
+		${PSPDEV}/psp/include/jsoncpp
+		${PSPDEV}/psp/include/libpng15
+	)
+
+	target_link_libraries(panel-pop PRIVATE
+		SDL2_image
+		SDL2_mixer
+		SDL2main
+		SDL2
+		SDL2_ttf
+		stdc++
+		png
+		jpeg
+		pspvram
+		${PSP_LIBRARIES}
+		jsoncpp
+		vorbisfile
+		vorbis
+		ogg
+		freetype
+		z
+	)
+
+	create_pbp_file(
+		TARGET panel-pop
+		ICON_PATH NULL
+		BACKGROUND_PATH NULL
+		PREVIEW_PATH NULL
+		TITLE panel-pop
+	)
+
+	file(COPY platform/psp/panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY platform/psp/assets DESTINATION ${CMAKE_BINARY_DIR})
 ELSE()
 	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
 
@@ -155,14 +193,19 @@ ELSE()
 	get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
 
 	include_directories(${SDL2_INCLUDE_DIR}
-		    ${SDL2_IMAGE_INCLUDE_DIR}
-		    ${SDL2_TTF_INCLUDE_DIR}
-		    ${SDL2_MIXER_INCLUDE_DIR}
-		    ${JSON_INC_PATH})
+		${SDL2_IMAGE_INCLUDE_DIR}
+		${SDL2_TTF_INCLUDE_DIR}
+		${SDL2_MIXER_INCLUDE_DIR}
+		${JSON_INC_PATH}
+	)
 
 	target_link_libraries(panel-pop ${SDL2_LIBRARY}
-		    ${SDL2_IMAGE_LIBRARIES}
-		    ${SDL2_TTF_LIBRARIES}
-		    ${SDL2_MIXER_LIBRARIES}
-		    jsoncpp)
+		${SDL2_IMAGE_LIBRARIES}
+		${SDL2_TTF_LIBRARIES}
+		${SDL2_MIXER_LIBRARIES}
+		jsoncpp
+	)
+
+	file(COPY panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 ENDIF()
