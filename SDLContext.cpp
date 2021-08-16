@@ -125,8 +125,8 @@ bool SDLContext::loadSpriteSheet() {
 }
 
 bool SDLContext::loadFonts() {
-    _fontPs = TTF_OpenFont("assets/fonts/PressStart2P.ttf", 16);
-    _fontSquare = TTF_OpenFont("assets/fonts/square_sans_serif_7.ttf", 48);
+    _fontPs = TTF_OpenFont("assets/fonts/PressStart2P.ttf", FONT_SIZE);
+    _fontSquare = TTF_OpenFont("assets/fonts/square_sans_serif_7.ttf", FONT_MENU_SIZE);
     if (_fontPs == NULL || _fontSquare == NULL) {
         std::cout << TTF_GetError();
         return false;

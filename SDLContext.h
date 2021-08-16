@@ -12,9 +12,10 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 
+#include "scale.h"
+
 class SDLContext {
  public:
-  static const int WINDOW_WIDTH = 640, WINDOW_HEIGHT = 480;
 
   static SDLContext &getInstance();
   bool init();
