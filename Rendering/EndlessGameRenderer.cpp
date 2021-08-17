@@ -69,7 +69,7 @@ SDL_Texture *EndlessGameRenderer::renderGame() {
     if (_game.getState() == Game::State::ENDED
         && SDL_GetTicks() % 1000 >= 500) {
         _SDLContext.renderText("PUSH START", {255, 255, 255},
-                               _SDLContext._fontSquare, 134, 342);
+                               _SDLContext._fontSquare, GAMEOVER_TEXT_X, GAMEOVER_TEXT_Y);
     }
 
     return _texture;
