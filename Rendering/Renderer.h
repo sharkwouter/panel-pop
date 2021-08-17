@@ -20,6 +20,7 @@ class Renderer {
   SDL_Texture *_texture;
   SDL_Renderer *_SDLRenderer;
   SDL_Texture *_spriteSheet;
+  SDL_Texture *_blockSprites;
 };
 
 #endif /* RENDERER_H_ */

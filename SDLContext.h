@@ -22,6 +22,7 @@ class SDLContext {
   void tearDown();
   SDL_Renderer *getRenderer();
   SDL_Texture *getSpriteSheet();
+  SDL_Texture *getBlockSprites();
   void renderTextureToWindow(SDL_Texture *);
   void toggleFullscreen();
   bool isFullscreen();
@@ -58,8 +59,10 @@ class SDLContext {
   SDL_Window *_window;
   SDL_Renderer *_renderer;
   SDL_Texture *_spriteSheet;
+  SDL_Texture *_blockSprites;
 
   bool loadSpriteSheet();
+  bool loadBlockSprites();
   bool loadFonts();
   bool loadAudio();
 };

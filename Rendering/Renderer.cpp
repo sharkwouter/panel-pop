@@ -11,7 +11,8 @@ Renderer::Renderer() :
     _SDLContext(SDLContext::getInstance()),
     _texture(nullptr),
     _SDLRenderer(_SDLContext.getRenderer()),
-    _spriteSheet(_SDLContext.getSpriteSheet()) {
+    _spriteSheet(_SDLContext.getSpriteSheet()),
+    _blockSprites(_SDLContext.getBlockSprites()) {
 }
 
 Renderer::~Renderer() {

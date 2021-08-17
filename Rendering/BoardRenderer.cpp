@@ -129,9 +129,9 @@ void BoardRenderer::drawGrid() {
 void BoardRenderer::drawBlocks() {
     SDL_SetRenderDrawBlendMode(_SDLRenderer, SDL_BLENDMODE_BLEND);
     if (_board.getState() == Board::COUNTDOWN) {
-        SDL_SetTextureAlphaMod(_spriteSheet, 0xa0);
+        SDL_SetTextureAlphaMod(_blockSprites, 0xa0);
     } else {
-        SDL_SetTextureAlphaMod(_spriteSheet, 0xff);
+        SDL_SetTextureAlphaMod(_blockSprites, 0xff);
     }
     for (int i = 0; i < Board::BOARD_HEIGHT; i++) {
         for (int j = 0; j < Board::BOARD_WIDTH; j++) {
@@ -182,18 +182,18 @@ void BoardRenderer::drawBlocks() {
                     SDL_Rect bottom = {sheet.x, sheet.y + (TILE_SIZE - px),
                                        sheet.w, px};
                     pos.h = top.h;
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &top, &pos);
-                    SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0x80, 0x80);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &top, &pos);
+                    SDL_SetTextureColorMod(_blockSprites, 0xFF, 0x80, 0x80);
                     pos.h = bottom.h;
                     pos.y += top.h;
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &bottom, &pos);
-                    SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0xFF, 0xFF);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &bottom, &pos);
+                    SDL_SetTextureColorMod(_blockSprites, 0xFF, 0xFF, 0xFF);
                 } else if (_board.getWarnColumn(j)
                     && !_board.hasActiveBlocks()) {
                     pos.y += sin(_board.getTicksRun());
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
                 } else {
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
                 }
             }
             /* TODO: debug mode...
@@ -228,15 +228,15 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
             if (block._explosionTimer % 2 == 0) {
                 sprite.y = 0;
             } else {
-                sprite.y = 5 * TILE_SIZE;
+                sprite.y = 2 * TILE_SIZE;
             }
         } else {
             if (block._explosionTimer < block._explosionAnimTicks) {
-                sprite.y = 4 * TILE_SIZE;
+                sprite.y = TILE_SIZE;
             }
         }
     } else if (_board.getState() == Board::GAME_OVER) {
-        sprite.y = 4 * TILE_SIZE;
+        sprite.y = 2 * TILE_SIZE;
     } else {
         sprite.y = 0;
     }

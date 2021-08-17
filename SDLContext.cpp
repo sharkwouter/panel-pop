@@ -105,6 +105,7 @@ bool SDLContext::init() {
     }
 
     success = loadSpriteSheet();
+    success = loadBlockSprites();
     success = loadFonts();
     success = loadAudio();
 
@@ -119,9 +120,18 @@ SDL_Texture *SDLContext::getSpriteSheet() {
     return _spriteSheet;
 }
 
+SDL_Texture *SDLContext::getBlockSprites() {
+    return _blockSprites;
+}
+
 bool SDLContext::loadSpriteSheet() {
     _spriteSheet = makeTextureFromImage("assets/sprites.png");
     return _spriteSheet != NULL;
+}
+
+bool SDLContext::loadBlockSprites() {
+    _blockSprites = makeTextureFromImage("assets/blocks.png");
+    return _blockSprites != NULL;
 }
 
 bool SDLContext::loadFonts() {
