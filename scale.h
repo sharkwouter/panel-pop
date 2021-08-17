@@ -24,14 +24,11 @@
 
     const int STACK_RAISE_TICKS_START = 20;
 
-    const int ENDLESS_HIGHSCORE_X = 0;
-    const int ENDLESS_HIGHSCORE_Y = 0;
-    const int ENDLESS_SCORE_X = 0;
-    const int ENDLESS_SCORE_y = 0;
-    const int ENDLESS_SPEED_X = 0;
-    const int ENDLESS_SPEED_Y = 0;
-    const int ENDLESS_TIME_X = 0;
-    const int ENDLESS_TIME_Y = 0;
+    const int ENDLESS_TEXT_X = 210;
+    const int ENDLESS_HIGHSCORE_Y = 54;
+    const int ENDLESS_SCORE_y = 74;
+    const int ENDLESS_SPEED_Y = 94;
+    const int ENDLESS_TIME_Y = 114;
 
     const int VERSUS_TIME_X = 220;
     const int VERSUS_TIME_Y = 126;
@@ -54,6 +51,12 @@
     const int CURSOR_OFFSET = 6;
 
     const int STACK_RAISE_TICKS_START = 10;
+
+    const int ENDLESS_TEXT_X = 260;
+    const int ENDLESS_HIGHSCORE_Y = 76;
+    const int ENDLESS_SCORE_y = 116;
+    const int ENDLESS_SPEED_Y = 156;
+    const int ENDLESS_TIME_Y = 196;
 
     const int VERSUS_TIME_X = 280;
     const int VERSUS_TIME_Y = 218;

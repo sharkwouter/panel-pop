@@ -106,24 +106,24 @@ void EndlessGameRenderer::renderBoard() {
 }
 
 void EndlessGameRenderer::renderStatsText() {
-    renderGameTime(260, 196);
+    renderGameTime(ENDLESS_TEXT_X, ENDLESS_TIME_Y);
     //speed
     std::ostringstream os;
-    os << 11 - _game.getBoard(0).getStackRaiseTicks();
+    os << STACK_RAISE_TICKS_START + 1 - _game.getBoard(0).getStackRaiseTicks();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 156);
+                           ENDLESS_TEXT_X, ENDLESS_SPEED_Y);
     //score
     os.str("");
     os.clear();
     os << _game.getBoard(0).getScore();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 116);
+                           ENDLESS_TEXT_X, ENDLESS_SCORE_y);
     //high score
     os.str("");
     os.clear();
     os << _game.getHighScore();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 76);
+                           ENDLESS_TEXT_X, ENDLESS_HIGHSCORE_Y);
 }
 
 void EndlessGameRenderer::shakeBoard(int id, int duration) {
