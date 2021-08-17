@@ -131,7 +131,7 @@ SDL_Texture *SDLContext::getPauseSprite() {
     return _pauseSprite;
 }
 
-bool SDLContext::loadSpriteSheet() {
+bool SDLContext::loadSprites() {
     _blockSprites = makeTextureFromImage("assets/blocks.png");
     _cursorSprites = makeTextureFromImage("assets/cursor.png");
     _popupSprites = makeTextureFromImage("assets/popups.png");

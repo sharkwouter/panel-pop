@@ -19,14 +19,14 @@ void ComboPopup::render() {
     SDL_Rect dst;
     dst.x = _x;
     dst.y = _y;
-    dst.w = 5;
+    dst.w = 12;
     dst.h = 27;
     SDL_Rect sheet;
-    sheet.x = 12;
-    sheet.y = 278;
-    sheet.w = 5;
+    sheet.x = 0;
+    sheet.y = 27;
+    sheet.w = 12;
     sheet.h = 27;
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &dst);
+    SDL_RenderCopy(_SDLRenderer, _popupSprites, &sheet, &dst);
     dst.x += sheet.w;
 
     sheet.w = 12;
@@ -34,18 +34,18 @@ void ComboPopup::render() {
     for (char &c : _digits) {
         int digit = c - '0';
         if (digit == 0) {
-            sheet.x = 145;
+            sheet.x = 120;
         } else {
-            sheet.x = 19 + (digit - 1) * 14;
+            sheet.x = 12 + (digit - 1) * 12;
         }
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &dst);
+        SDL_RenderCopy(_SDLRenderer, _popupSprites, &sheet, &dst);
         dst.x += sheet.w;
     }
 
-    sheet.x = 159;
-    sheet.w = 5;
-    dst.w = 5;
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &dst);
+    sheet.x = 132;
+    sheet.w = 12;
+    dst.w = 12;
+    SDL_RenderCopy(_SDLRenderer, _popupSprites, &sheet, &dst);
 }
 
 ComboPopup::~ComboPopup() {
