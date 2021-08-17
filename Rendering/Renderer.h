@@ -21,6 +21,9 @@ class Renderer {
   SDL_Renderer *_SDLRenderer;
   SDL_Texture *_spriteSheet;
   SDL_Texture *_blockSprites;
+  SDL_Texture *_popupSprites;
+  SDL_Texture *_cursorSprites;
+  SDL_Texture *_pauseSprite;
 };
 
 #endif /* RENDERER_H_ */

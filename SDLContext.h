@@ -23,6 +23,9 @@ class SDLContext {
   SDL_Renderer *getRenderer();
   SDL_Texture *getSpriteSheet();
   SDL_Texture *getBlockSprites();
+  SDL_Texture *getCursorSprites();
+  SDL_Texture *getPopupSprites();
+  SDL_Texture *getPauseSprite();
   void renderTextureToWindow(SDL_Texture *);
   void toggleFullscreen();
   bool isFullscreen();
@@ -60,9 +63,11 @@ class SDLContext {
   SDL_Renderer *_renderer;
   SDL_Texture *_spriteSheet;
   SDL_Texture *_blockSprites;
+  SDL_Texture *_cursorSprites;
+  SDL_Texture *_popupSprites;
+  SDL_Texture *_pauseSprite;
 
-  bool loadSpriteSheet();
-  bool loadBlockSprites();
+  bool loadSprites();
   bool loadFonts();
   bool loadAudio();
 };

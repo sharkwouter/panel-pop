@@ -104,12 +104,7 @@ bool SDLContext::init() {
         toggleFullscreen();
     }
 
-    success = loadSpriteSheet();
-    success = loadBlockSprites();
-    success = loadFonts();
-    success = loadAudio();
-
-    return success;
+    return loadSprites() && loadFonts() && loadAudio();
 }
 
 SDL_Renderer *SDLContext::getRenderer() {
@@ -124,14 +119,31 @@ SDL_Texture *SDLContext::getBlockSprites() {
     return _blockSprites;
 }
 
-bool SDLContext::loadSpriteSheet() {
-    _spriteSheet = makeTextureFromImage("assets/sprites.png");
-    return _spriteSheet != NULL;
+SDL_Texture *SDLContext::getCursorSprites() {
+    return _cursorSprites;
 }
 
-bool SDLContext::loadBlockSprites() {
+SDL_Texture *SDLContext::getPopupSprites() {
+    return _popupSprites;
+}
+
+SDL_Texture *SDLContext::getPauseSprite() {
+    return _pauseSprite;
+}
+
+bool SDLContext::loadSpriteSheet() {
     _blockSprites = makeTextureFromImage("assets/blocks.png");
-    return _blockSprites != NULL;
+    _cursorSprites = makeTextureFromImage("assets/cursor.png");
+    _popupSprites = makeTextureFromImage("assets/popups.png");
+    _pauseSprite = makeTextureFromImage("assets/pause.png");
+    _spriteSheet = makeTextureFromImage("assets/sprites.png");
+
+    return
+        _blockSprites != NULL &&
+        _cursorSprites != NULL &&
+        _popupSprites != NULL &&
+        _pauseSprite != NULL &&
+        _spriteSheet != NULL;
 }
 
 bool SDLContext::loadFonts() {

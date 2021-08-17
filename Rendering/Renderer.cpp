@@ -12,7 +12,10 @@ Renderer::Renderer() :
     _texture(nullptr),
     _SDLRenderer(_SDLContext.getRenderer()),
     _spriteSheet(_SDLContext.getSpriteSheet()),
-    _blockSprites(_SDLContext.getBlockSprites()) {
+    _blockSprites(_SDLContext.getBlockSprites()),
+    _popupSprites(_SDLContext.getPopupSprites()),
+    _cursorSprites(_SDLContext.getCursorSprites()),
+    _pauseSprite(_SDLContext.getPauseSprite()) {
 }
 
 Renderer::~Renderer() {
