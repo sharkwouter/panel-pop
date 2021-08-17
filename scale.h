@@ -37,6 +37,8 @@
     const int VERSUS_TIME_Y = 126;
     const int VERSUS_POINTS_X = 212;
     const int VERSUS_POINTS_Y = 106;
+
+    const int TITLESCREEN_VERSION_X = 135;
 #else
     const int TILE_SIZE = 32;
     const int WINDOW_WIDTH = 640;
@@ -57,6 +59,8 @@
     const int VERSUS_TIME_Y = 218;
     const int VERSUS_POINTS_X = 264;
     const int VERSUS_POINTS_Y = 180;
+
+    const int TITLESCREEN_VERSION_X = 159;
 #endif
 
 const int BOARD_WIDTH = TILE_SIZE*6;
