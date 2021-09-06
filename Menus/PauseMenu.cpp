@@ -32,9 +32,9 @@ PauseMenu::~PauseMenu() {
 
 void PauseMenu::render() const {
     //background
-    SDL_Rect sprite = {0, 410, 150, 70};
+    SDL_Rect sprite = {0, 0, 150, 70};
     SDL_Rect pos = {245, 205, 150, 70};
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+    SDL_RenderCopy(_SDLRenderer, _pauseSprite, &sprite, &pos);
 
     int x = pos.x + 20;
     int y = pos.y + 8;
