@@ -134,11 +134,7 @@ if (VITA)
 		    FILE assets/fonts assets/fonts
 		    FILE assets/music assets/music
 		    FILE assets/sfx assets/sfx
-		    FILE assets/1p.png assets/1p.png
-		    FILE assets/2p.png assets/2p.png
-		    FILE assets/bg1.png assets/bg1.png
-		    FILE assets/sprites.png assets/sprites.png
-		    FILE assets/title.png assets/title.png
+		    FILE assets/images/ assets/images/
 	)
 ELSEIF(PLATFORM_PSP)
 	include_directories(
@@ -176,8 +172,12 @@ ELSEIF(PLATFORM_PSP)
 	)
 
 	file(COPY platform/psp/panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
-	file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
-	file(COPY platform/psp/assets DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/music DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/sfx DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY platform/psp/assets/images DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/images/popups.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
+	file(COPY assets/images/pause.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
 ELSE()
 	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
 
@@ -208,5 +208,8 @@ ELSE()
 	)
 
 	file(COPY panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
-	file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/music DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/sfx DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/images DESTINATION ${CMAKE_BINARY_DIR}/assets)
 ENDIF()

@@ -132,11 +132,11 @@ SDL_Texture *SDLContext::getPauseSprite() {
 }
 
 bool SDLContext::loadSprites() {
-    _blockSprites = makeTextureFromImage("assets/blocks.png");
-    _cursorSprites = makeTextureFromImage("assets/cursor.png");
-    _popupSprites = makeTextureFromImage("assets/popups.png");
-    _pauseSprite = makeTextureFromImage("assets/pause.png");
-    _spriteSheet = makeTextureFromImage("assets/sprites.png");
+    _blockSprites = makeTextureFromImage("assets/images/blocks.png");
+    _cursorSprites = makeTextureFromImage("assets/images/cursor.png");
+    _popupSprites = makeTextureFromImage("assets/images/popups.png");
+    _pauseSprite = makeTextureFromImage("assets/images/pause.png");
+    _spriteSheet = makeTextureFromImage("assets/images/sprites.png");
 
     return
         _blockSprites != NULL &&
