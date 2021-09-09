@@ -1,7 +1,7 @@
 /*
  * scale.h
  *
- *  Created on: 9.2.2016
+ *  Created on: 9.9.2021
  *      Author: sharkwouter
  */
 
@@ -77,7 +77,5 @@ const int BOARD_HEIGHT = TILE_SIZE*12;
 
 const int CURSOR_WIDTH = TILE_SIZE * 2 + CURSOR_OFFSET * 2;
 const int CURSOR_HEIGHT = TILE_SIZE + CURSOR_OFFSET * 2;
-const int CURSOR_SPRITE_X = TILE_SIZE * 7;
-const int CURSOR_SPRITE_Y = TILE_SIZE * 2;
 
 #endif /* SCALE_H_ */
