@@ -262,9 +262,9 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = (7 + t) * TILE_SIZE;
+        sprite.x = t * TILE_SIZE;
         if (blink) {
-            sprite.y += TILE_SIZE;
+            sprite.y += 3 * TILE_SIZE;
         }
         return sprite;
     } else {
@@ -276,10 +276,10 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = (10 + t) * TILE_SIZE;
-        sprite.y = 0 + u * TILE_SIZE;
+        sprite.x = t * TILE_SIZE;
+        sprite.y = u * TILE_SIZE;
         if (blink) {
-            sprite.y += 3 * TILE_SIZE;
+            sprite.x += 3 * TILE_SIZE;
         }
         return sprite;
     }
@@ -350,7 +350,7 @@ void BoardRenderer::drawGarbageBlocks() {
         pos.w = TILE_SIZE * 2;
         pos.h = TILE_SIZE * 0.75;
         SDL_Rect sprite;
-        sprite.x = TILE_SIZE * 13;
+        sprite.x = TILE_SIZE * 6;
         sprite.w = TILE_SIZE * 2;
         sprite.h = TILE_SIZE * 0.75;
         bool blink = it->getTransformationTimer() % 2 != 0
@@ -398,15 +398,15 @@ void BoardRenderer::drawGarbageBlocks() {
                         //draw revealed block
                         SDL_Rect sprite = getBlockSprite(
                             it->getBufferRow(it->getW() - rx - 1));
-                        SDL_SetTextureColorMod(_garbageSprites, 0x50, 0x50, 0x50);
-                        SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite,
+                        SDL_SetTextureColorMod(_blockSprites, 0x50, 0x50, 0x50);
+                        SDL_RenderCopy(_SDLRenderer, _blockSprites, &sprite,
                                        &pos);
-                        SDL_SetTextureColorMod(_garbageSprites, 0xFF, 0xFF, 0xFF);
+                        SDL_SetTextureColorMod(_blockSprites, 0xFF, 0xFF, 0xFF);
                         continue;
                     }
                 } else if (it->getTransformationTimer() > BLINK_TIME) {
                     //transforming block
-                    SDL_Rect sprite = {TILE_SIZE * 15, 0, TILE_SIZE, TILE_SIZE};
+                    SDL_Rect sprite = {TILE_SIZE * 6, TILE_SIZE * 3, TILE_SIZE, TILE_SIZE};
                     SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
                 }
             }
