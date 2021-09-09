@@ -116,7 +116,7 @@ void VsGameRenderer::renderMatchPoints() {
         } else {
             sprite.x = 0;
         }
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+        SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
         pos.y += 23;
     }
 //p2
@@ -127,7 +127,7 @@ void VsGameRenderer::renderMatchPoints() {
         } else {
             sprite.x = 0;
         }
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+        SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
         pos.y += 23;
     }
 }

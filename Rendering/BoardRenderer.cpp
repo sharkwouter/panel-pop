@@ -151,7 +151,6 @@ void BoardRenderer::drawBlocks() {
                 } else if (block._state == SWAPPING_LEFT) {
                     pos.x -= xOffset;
                 }
-                //SDL_RenderFillRect(_SDLRenderer, &pos);
                 if (block._explosionTimer > BLINK_TIME
                     && block._explosionTimer >= block._explosionAnimTicks) {
                     continue;
@@ -196,14 +195,9 @@ void BoardRenderer::drawBlocks() {
                     SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
                 }
             }
-            /* TODO: debug mode...
-            if (_board.getTile(i, j).chain) {
-                SDL_SetRenderDrawColor(_SDLRenderer, 0, 0xFF, 0, 0x80);
-                SDL_RenderFillRect(_SDLRenderer, &pos);
-            }*/
         }
     }
-    SDL_SetTextureAlphaMod(_spriteSheet, 0xff);
+    SDL_SetTextureAlphaMod(_blockSprites, 0xff);
 }
 
 SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
@@ -293,7 +287,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
 }
 
 void BoardRenderer::drawBufferRow() {
-    SDL_SetTextureColorMod(_spriteSheet, 0x50, 0x50, 0x50);
+    SDL_SetTextureColorMod(_blockSprites, 0x50, 0x50, 0x50);
     for (int i = 0; i < Board::BOARD_WIDTH; i++) {
         const Block block = _board.getBufferRow(i).b;
         SDL_Rect sheet = getBlockSprite(block);
@@ -308,10 +302,10 @@ void BoardRenderer::drawBufferRow() {
             pos.y += sin(_board.getTicksRun());
         }
 
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+        SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
 
     }
-    SDL_SetTextureColorMod(_spriteSheet, 0xff, 0xff, 0xff);
+    SDL_SetTextureColorMod(_blockSprites, 0xff, 0xff, 0xff);
 }
 
 void BoardRenderer::drawGarbageBlocks() {
@@ -343,7 +337,7 @@ void BoardRenderer::drawGarbageBlocks() {
 
                 //normal
                 SDL_Rect sprite = getGarbageBlockSprite(rx, ry, *it);
-                SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+                SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
 
             }
         }
@@ -377,7 +371,7 @@ void BoardRenderer::drawGarbageBlocks() {
         pos.x += it->getW() * TILE_SIZE / 2 - sprite.w / 2;
         pos.y += h * TILE_SIZE / 2 - sprite.h / 2;
 
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+        SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
 
         //draw animation blocks...
         for (int y = it->getY() - (it->getH() - 1); y <= it->getY(); ++y) {
@@ -404,16 +398,16 @@ void BoardRenderer::drawGarbageBlocks() {
                         //draw revealed block
                         SDL_Rect sprite = getBlockSprite(
                             it->getBufferRow(it->getW() - rx - 1));
-                        SDL_SetTextureColorMod(_spriteSheet, 0x50, 0x50, 0x50);
-                        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite,
+                        SDL_SetTextureColorMod(_garbageSprites, 0x50, 0x50, 0x50);
+                        SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite,
                                        &pos);
-                        SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0xFF, 0xFF);
+                        SDL_SetTextureColorMod(_garbageSprites, 0xFF, 0xFF, 0xFF);
                         continue;
                     }
                 } else if (it->getTransformationTimer() > BLINK_TIME) {
                     //transforming block
                     SDL_Rect sprite = {TILE_SIZE * 15, 0, TILE_SIZE, TILE_SIZE};
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+                    SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
                 }
             }
         }
@@ -422,14 +416,14 @@ void BoardRenderer::drawGarbageBlocks() {
 }
 
 void BoardRenderer::drawCursor() {
-    SDL_Rect sprite = {CURSOR_SPRITE_X, CURSOR_SPRITE_Y, CURSOR_WIDTH, CURSOR_HEIGHT};
+    SDL_Rect sprite = {0, 0, CURSOR_WIDTH, CURSOR_HEIGHT};
     if (_board.getTicksRun() % (2 * CURSOR_ANIM_TICKS) >= CURSOR_ANIM_TICKS) {
         sprite.y += CURSOR_HEIGHT;
     }
     SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - CURSOR_OFFSET, (BOARD_HEIGHT
         - (_board.getCursorY() + 1) * TILE_SIZE) - _board.getStackOffset()
         - CURSOR_OFFSET, CURSOR_WIDTH, CURSOR_HEIGHT};
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+    SDL_RenderCopy(_SDLRenderer, _cursorSprites, &sprite, &pos);
 }
 
 BoardRenderer::~BoardRenderer() {

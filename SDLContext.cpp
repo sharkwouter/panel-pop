@@ -43,8 +43,15 @@ SDLContext::SDLContext() :
     _sfxGo(nullptr),
     _sfxPause(nullptr),
     _window(nullptr),
-    _renderer(nullptr),
-    _spriteSheet(nullptr) {
+    _blockSprites(nullptr),
+    _cursorSprites(nullptr),
+    _popupSprites(nullptr),
+    _garbageSprites(nullptr),
+    _garbagequeueSprites(nullptr),
+    _matchpointSprites(nullptr),
+    _pauseSprite(nullptr),
+    _particleSprite(nullptr),
+    _renderer(nullptr) {
 }
 
 SDLContext &SDLContext::getInstance() {
@@ -111,10 +118,6 @@ SDL_Renderer *SDLContext::getRenderer() {
     return _renderer;
 }
 
-SDL_Texture *SDLContext::getSpriteSheet() {
-    return _spriteSheet;
-}
-
 SDL_Texture *SDLContext::getBlockSprites() {
     return _blockSprites;
 }
@@ -127,23 +130,44 @@ SDL_Texture *SDLContext::getPopupSprites() {
     return _popupSprites;
 }
 
+SDL_Texture *SDLContext::getGarbageSprites() {
+    return _garbageSprites;
+}
+
+SDL_Texture *SDLContext::getGarbagequeueSprites() {
+    return _garbagequeueSprites;
+}
+
+SDL_Texture *SDLContext::getMatchpointSprites() {
+    return _matchpointSprites;
+}
+
 SDL_Texture *SDLContext::getPauseSprite() {
     return _pauseSprite;
+}
+
+SDL_Texture *SDLContext::getParticleSprite() {
+    return _particleSprite;
 }
 
 bool SDLContext::loadSprites() {
     _blockSprites = makeTextureFromImage("assets/images/blocks.png");
     _cursorSprites = makeTextureFromImage("assets/images/cursor.png");
     _popupSprites = makeTextureFromImage("assets/images/popups.png");
+    _garbageSprites = makeTextureFromImage("assets/images/garbage.png");
+    _garbagequeueSprites = makeTextureFromImage("assets/images/garbagequeue.png");
+    _matchpointSprites = makeTextureFromImage("assets/images/matchpoints.png");
     _pauseSprite = makeTextureFromImage("assets/images/pause.png");
-    _spriteSheet = makeTextureFromImage("assets/images/sprites.png");
-
+    _particleSprite = makeTextureFromImage("assets/images/particle.png");
     return
         _blockSprites != NULL &&
         _cursorSprites != NULL &&
         _popupSprites != NULL &&
+        _garbageSprites != NULL &&
+        _garbagequeueSprites != NULL &&
+        _matchpointSprites != NULL &&
         _pauseSprite != NULL &&
-        _spriteSheet != NULL;
+        _particleSprite != NULL;
 }
 
 bool SDLContext::loadFonts() {

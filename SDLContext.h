@@ -21,11 +21,14 @@ class SDLContext {
   bool init();
   void tearDown();
   SDL_Renderer *getRenderer();
-  SDL_Texture *getSpriteSheet();
   SDL_Texture *getBlockSprites();
   SDL_Texture *getCursorSprites();
   SDL_Texture *getPopupSprites();
+  SDL_Texture *getGarbageSprites();
+  SDL_Texture *getGarbagequeueSprites();  
+  SDL_Texture *getMatchpointSprites();
   SDL_Texture *getPauseSprite();
+  SDL_Texture *getParticleSprite();  
   void renderTextureToWindow(SDL_Texture *);
   void toggleFullscreen();
   bool isFullscreen();
@@ -61,11 +64,14 @@ class SDLContext {
 
   SDL_Window *_window;
   SDL_Renderer *_renderer;
-  SDL_Texture *_spriteSheet;
   SDL_Texture *_blockSprites;
   SDL_Texture *_cursorSprites;
   SDL_Texture *_popupSprites;
+  SDL_Texture *_garbageSprites;
+  SDL_Texture *_garbagequeueSprites;
+  SDL_Texture *_matchpointSprites;
   SDL_Texture *_pauseSprite;
+  SDL_Texture *_particleSprite;
 
   bool loadSprites();
   bool loadFonts();
