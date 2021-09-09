@@ -38,6 +38,12 @@
     const int VERSUS_POINTS_X = 212;
     const int VERSUS_POINTS_Y = 106;
 
+    const int VERSUS_MATCH_POINT_1_X = 260;
+    const int VERSUS_MATCH_POINT_1_Y = 35;
+    const int VERSUS_MATCH_POINT_2_X = 359;
+    const int VERSUS_MATCH_POINT_2_Y = 35;
+    const int VERSUS_MATCH_POINT_SIZE = 21;
+
     const int TITLESCREEN_VERSION_X = 135;
 #else
     const int TILE_SIZE = 32;
@@ -68,6 +74,12 @@
     const int VERSUS_TIME_Y = 218;
     const int VERSUS_POINTS_X = 264;
     const int VERSUS_POINTS_Y = 180;
+
+    const int VERSUS_MATCH_POINT_1_X = 260;
+    const int VERSUS_MATCH_POINT_1_Y = 35;
+    const int VERSUS_MATCH_POINT_2_X = 359;
+    const int VERSUS_MATCH_POINT_2_Y = 35;
+    const int VERSUS_MATCH_POINT_SIZE = 21;
 
     const int TITLESCREEN_VERSION_X = 159;
 #endif

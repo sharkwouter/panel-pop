@@ -108,27 +108,27 @@ void VsGameRenderer::renderStatsText() {
 
 void VsGameRenderer::renderMatchPoints() {
 //p1
-    SDL_Rect sprite = {0, 361, 21, 21};
-    SDL_Rect pos = {260, 35, 21, 21};
+    SDL_Rect sprite = {0, 0, 21, 21};
+    SDL_Rect pos = {VERSUS_MATCH_POINT_1_X, VERSUS_MATCH_POINT_1_Y, VERSUS_MATCH_POINT_SIZE, VERSUS_MATCH_POINT_SIZE};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP1MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = 21;
+            sprite.x = VERSUS_MATCH_POINT_SIZE;
         } else {
             sprite.x = 0;
         }
         SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
-        pos.y += 23;
+        pos.y += VERSUS_MATCH_POINT_SIZE + 2;
     }
 //p2
-    pos = {359, 35, 21, 21};
+    pos = {VERSUS_MATCH_POINT_2_X, VERSUS_MATCH_POINT_2_Y, VERSUS_MATCH_POINT_SIZE, VERSUS_MATCH_POINT_SIZE};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP2MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = 21;
+            sprite.x = VERSUS_MATCH_POINT_SIZE;
         } else {
             sprite.x = 0;
         }
         SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
-        pos.y += 23;
+        pos.y += VERSUS_MATCH_POINT_SIZE + 2;
     }
 }
 
