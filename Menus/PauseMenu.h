@@ -9,6 +9,7 @@
 #define MENUS_PAUSEMENU_H_
 
 #include "Menu.h"
+#include "../scale.h"
 
 class Game;
 
@@ -21,6 +22,12 @@ class PauseMenu : public Menu {
 
  private:
   Game &_game;
+
+  int _menu_x;
+  int _menu_y;
+  int _sprite_w;
+  int _sprite_h;
+
 };
 
 #endif /* MENUS_PAUSEMENU_H_ */

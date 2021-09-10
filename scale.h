@@ -44,6 +44,8 @@
     const int VERSUS_MATCH_POINT_2_Y = 33;
 
     const int TITLESCREEN_VERSION_X = 135;
+
+    const int PAUSE_MENU_TEXT_GAP = 1;
 #else
     const int TILE_SIZE = 32;
     const int WINDOW_WIDTH = 640;
@@ -80,6 +82,8 @@
     const int VERSUS_MATCH_POINT_2_Y = 35;
 
     const int TITLESCREEN_VERSION_X = 159;
+
+    const int PAUSE_MENU_TEXT_GAP = 2;
 #endif
 
 const int BOARD_WIDTH = TILE_SIZE*6;
