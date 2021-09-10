@@ -36,6 +36,8 @@ VsGameRenderer::VsGameRenderer(VsGame &game) :
     _bg = _SDLContext.makeTextureFromImage("assets/images/bg1.png");
     _2pbg = _SDLContext.makeTextureFromImage("assets/images/2p.png");
     SDL_SetTextureBlendMode(_2pbg, SDL_BLENDMODE_BLEND);
+
+    SDL_QueryTexture(_matchPointSprites, NULL, NULL, NULL, &_matchpointSize);
 }
 
 void VsGameRenderer::tick() {
@@ -108,27 +110,27 @@ void VsGameRenderer::renderStatsText() {
 
 void VsGameRenderer::renderMatchPoints() {
 //p1
-    SDL_Rect sprite = {0, 0, 21, 21};
-    SDL_Rect pos = {VERSUS_MATCH_POINT_1_X, VERSUS_MATCH_POINT_1_Y, VERSUS_MATCH_POINT_SIZE, VERSUS_MATCH_POINT_SIZE};
+    SDL_Rect sprite = {0, 0, _matchpointSize, _matchpointSize};
+    SDL_Rect pos = {VERSUS_MATCH_POINT_1_X, VERSUS_MATCH_POINT_1_Y, _matchpointSize, _matchpointSize};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP1MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = VERSUS_MATCH_POINT_SIZE;
+            sprite.x = _matchpointSize;
         } else {
             sprite.x = 0;
         }
         SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
-        pos.y += VERSUS_MATCH_POINT_SIZE + 2;
+        pos.y += _matchpointSize + 2;
     }
 //p2
-    pos = {VERSUS_MATCH_POINT_2_X, VERSUS_MATCH_POINT_2_Y, VERSUS_MATCH_POINT_SIZE, VERSUS_MATCH_POINT_SIZE};
+    pos = {VERSUS_MATCH_POINT_2_X, VERSUS_MATCH_POINT_2_Y, _matchpointSize, _matchpointSize};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP2MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = VERSUS_MATCH_POINT_SIZE;
+            sprite.x = _matchpointSize;
         } else {
             sprite.x = 0;
         }
         SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
-        pos.y += VERSUS_MATCH_POINT_SIZE + 2;
+        pos.y += _matchpointSize + 2;
     }
 }
 

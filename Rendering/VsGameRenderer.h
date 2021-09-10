@@ -37,6 +37,8 @@ class VsGameRenderer : public GameRenderer {
   int _b0Shake;
   int _b1Shake;
 
+  int _matchpointSize;
+
   void renderBoard(int id);
   void renderStatsText();
   void renderMatchPoints();
