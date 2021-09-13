@@ -58,8 +58,8 @@ SDL_Texture *DemoGameState::render() {
         SDLContext::getInstance().renderText("PUSH ANY KEY",
                                              {255, 255, 255},
                                              SDLContext::getInstance()._fontPs,
-                                             440,
-                                             450);
+                                             WINDOW_WIDTH - (13 * FONT_SIZE),
+                                             WINDOW_HEIGHT - (2 * FONT_SIZE));
     }
     return texture;
 }
