@@ -91,4 +91,5 @@ void OptionsMenu::render() const {
                                    x + 300, y);
         }
     }
+    SDL_SetRenderDrawColor(_SDLContext.getRenderer(), 255, 255, 255, 255);
 }
