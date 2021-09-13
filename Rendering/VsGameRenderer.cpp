@@ -65,9 +65,10 @@ SDL_Texture *VsGameRenderer::renderGame() {
 
         renderBoard(0);
         renderBoard(1);
-        SDL_Rect gbqp = {258, 307, 38, 120};
+        SDL_Rect gbqp = {VERSUS_GARBAGE_QUEUE_1_X, VERSUS_GARBAGE_QUEUE_1_Y, VERSUS_GARBAGE_QUEUE_WIDTH, VERSUS_GARBAGE_QUEUE_HEIGHT};
         SDL_RenderCopy(_SDLRenderer, gbq, NULL, &gbqp);
-        gbqp.x = 344;
+        gbqp.x = VERSUS_GARBAGE_QUEUE_2_X;
+        gbqp.y = VERSUS_GARBAGE_QUEUE_2_Y;
         SDL_RenderCopy(_SDLRenderer, gbq2, NULL, &gbqp);
         renderParticles();
 

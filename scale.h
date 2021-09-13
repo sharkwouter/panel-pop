@@ -43,6 +43,13 @@
     const int VERSUS_MATCH_POINT_2_X = 258;
     const int VERSUS_MATCH_POINT_2_Y = 33;
 
+    const int VERSUS_GARBAGE_QUEUE_1_X = 209;
+    const int VERSUS_GARBAGE_QUEUE_1_Y = 170;
+    const int VERSUS_GARBAGE_QUEUE_2_X = 252;
+    const int VERSUS_GARBAGE_QUEUE_2_Y = 170;
+    const int VERSUS_GARBAGE_QUEUE_WIDTH = 19;
+    const int VERSUS_GARBAGE_QUEUE_HEIGHT = 60;
+
     const int TITLESCREEN_VERSION_X = 135;
 
     const int PAUSE_MENU_TEXT_GAP = 1;
@@ -80,6 +87,13 @@
     const int VERSUS_MATCH_POINT_1_Y = 35;
     const int VERSUS_MATCH_POINT_2_X = 359;
     const int VERSUS_MATCH_POINT_2_Y = 35;
+
+    const int VERSUS_GARBAGE_QUEUE_1_X = 258;
+    const int VERSUS_GARBAGE_QUEUE_1_Y = 307;
+    const int VERSUS_GARBAGE_QUEUE_2_X = 258;
+    const int VERSUS_GARBAGE_QUEUE_2_Y = 344;
+    const int VERSUS_GARBAGE_QUEUE_WIDTH = 38;
+    const int VERSUS_GARBAGE_QUEUE_HEIGHT = 120;
 
     const int TITLESCREEN_VERSION_X = 159;
 
