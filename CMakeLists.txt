@@ -146,14 +146,22 @@ ELSEIF(PLATFORM_PSP)
 	target_link_libraries(panel-pop PRIVATE
 		SDL2_image
 		SDL2_mixer
-		SDL2main
 		SDL2
 		SDL2_ttf
-		stdc++
+		SDL2main
 		png
 		jpeg
 		pspvram
-		${PSP_LIBRARIES}
+		GL
+		pspvram
+		pspvfpu
+		pspgu
+		pspctrl
+		pspdebug
+		pspdisplay
+		pspge
+		pspaudio
+		psphprm
 		jsoncpp
 		vorbisfile
 		vorbis
