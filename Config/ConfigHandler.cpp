@@ -65,11 +65,7 @@ bool ConfigHandler::saveConfig() {
 }
 
 InputConfig ConfigHandler::getKeyConfig(int player) {
-    #ifdef __PSP__
-        std::string playerString = "0";
-    #else
-        std::string playerString = std::to_string(player);
-    #endif
+    std::string playerString = std::to_string(player);
     auto prefix = "p" + playerString + "_";
     return InputConfig(parseInputEvent(prefix + "up"),
                        parseInputEvent(prefix + "down"),
@@ -117,11 +113,7 @@ InputEvent *ConfigHandler::parseInputEvent(const std::string &configKey) {
 
 void ConfigHandler::setKeyConfig(InputConfig config, int player) {
     StateManager::getInstance().setKeys(config, player);
-    #ifdef __PSP__
-        std::string playerString = "0";
-    #else
-        std::string playerString = std::to_string(player);
-    #endif
+    std::string playerString = std::to_string(player);
     auto prefix = "p" + playerString + "_";
     _settingsTree["keys"][prefix + "up"] = config._up->toString();
     _settingsTree["keys"][prefix + "down"] = config._down->toString();

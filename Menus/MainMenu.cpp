@@ -32,7 +32,7 @@ MainMenu::MainMenu() {
                    StateManager::getInstance().switchToState(new AIGameState);
                  }));
 
-    #ifndef __vita__ || __PSP__
+    #if !defined(__vita__) && !defined(__PSP__)
       addItem(
           MenuItem("2P VS",
                   [&]() {

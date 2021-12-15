@@ -32,16 +32,3 @@ int gameLoop(int argc, char *args[]) {
 
     return 0;
 }
-
-#ifdef __PSP__
-extern "C"
-{
-    int SDL_main(int argc, char *argv[]) {
-        return gameLoop(argc, argv);
-    }
-}
-#else
-int main(int argc, char *argv[]) {
-    return gameLoop(argc, argv);
-}
-#endif
