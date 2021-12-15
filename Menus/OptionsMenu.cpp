@@ -25,7 +25,7 @@ OptionsMenu::OptionsMenu(OptionsMenuState &state) :
 
     ConfigHandler &cf = ConfigHandler::getInstance();
 
-    #ifndef __vita__
+    #if !defined(__vita__) && !defined(__PSP__)
         addItem(
             MenuItem("Fullscreen", [&]() {}, cf.getFullscreen(), 1,
                     MenuItem::OptionType::TOGGLE));
@@ -38,14 +38,14 @@ OptionsMenu::OptionsMenu(OptionsMenuState &state) :
         MenuItem("SFX volume", [&]() {}, cf.getSfxVolume(), MIX_MAX_VOLUME,
                  MenuItem::OptionType::SLIDER));
 
-    #ifndef __vita__
+    #if !defined(__vita__) && !defined(__PSP__)
         addItem(MenuItem("Configure controls", [&]() {
         _state.configurePlayerKeys(_items.at(_selection).getValue() + 1);
         }, 0, 1, MenuItem::OptionType::PLAYER));
     #endif
 
     addItem(MenuItem("Apply", [&]() {
-      #ifdef __vita__
+      #if defined(__vita__) || defined(__PSP__)
         cf.setMusicVolume(_items.at(0).getValue());
         cf.setSfxVolume(_items.at(1).getValue());
       #else
