@@ -16,7 +16,7 @@
 #include "SDLContext.h"
 #include "States/StateManager.h"
 
-int gameLoop(int argc, char *args[]) {
+int main(int argc, char *args[]) {
     srand(time(NULL));
     SDLContext &SDL = SDLContext::getInstance();
     ConfigHandler &configHandler = ConfigHandler::getInstance();
