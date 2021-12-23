@@ -25,13 +25,12 @@ BoardEventHandler::BoardEventHandler(GameRenderer &gr, int boardId) :
     _chain(false),
     _blockFall(false) {
     if (boardId == 0) {
-        _boardXPos = GameRenderer::BOARD0_X;
-        _boardYPos = GameRenderer::BOARD0_Y;
+        _boardXPos = BOARD0_X;
+        _boardYPos = BOARD0_Y;
     } else if (boardId == 1) {
-        _boardXPos = GameRenderer::BOARD1_X;
-        _boardYPos = GameRenderer::BOARD1_Y;
+        _boardXPos = BOARD1_X;
+        _boardYPos = BOARD1_Y;
     }
-
 }
 
 BoardEventHandler::~BoardEventHandler() {
@@ -63,9 +62,9 @@ void BoardEventHandler::blockExplode(int x, int y, int stackOffset, int order,
 
     if (y <= Board::TOP_ROW) {
 
-        int posx = x * BoardRenderer::TILE_SIZE + _boardXPos + 14;
-        int posy = BoardRenderer::BOARD_HEIGHT
-            - (y + 1) * BoardRenderer::TILE_SIZE - stackOffset + _boardYPos
+        int posx = x * TILE_SIZE + _boardXPos + 14;
+        int posy = BOARD_HEIGHT
+            - (y + 1) * TILE_SIZE - stackOffset + _boardYPos
             + 14;
         int lifetime = 15;
 
@@ -121,18 +120,18 @@ void BoardEventHandler::gbFall(bool big) {
 void BoardEventHandler::combo(int value, int col, int row, int stackOffset) {
     _combo = true;
     _gameRenderer.addParticle(
-        new ComboPopup((col * BoardRenderer::TILE_SIZE + 5) + _boardXPos,
-                       ((BoardRenderer::BOARD_HEIGHT
-                           - (row + 1) * BoardRenderer::TILE_SIZE - stackOffset)
+        new ComboPopup((col * TILE_SIZE + 5) + _boardXPos,
+                       ((BOARD_HEIGHT
+                           - (row + 1) * TILE_SIZE - stackOffset)
                            + 30) + _boardYPos, value, 60));
 }
 
 void BoardEventHandler::chain(int value, int col, int row, int stackOffset) {
     _chain = true;
     _gameRenderer.addParticle(
-        new ChainPopup(col * BoardRenderer::TILE_SIZE + 5 + _boardXPos,
-                       (BoardRenderer::BOARD_HEIGHT
-                           - (row + 1) * BoardRenderer::TILE_SIZE - stackOffset
+        new ChainPopup(col * TILE_SIZE + 5 + _boardXPos,
+                       (BOARD_HEIGHT
+                           - (row + 1) * TILE_SIZE - stackOffset
                            + _boardYPos), value, 60));
 }
 

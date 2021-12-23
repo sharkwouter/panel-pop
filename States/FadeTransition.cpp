@@ -43,7 +43,7 @@ SDL_Texture *FadeTransition::render() {
     SDL_SetRenderTarget(renderer, target);
     uint8_t alpha = 0xFF * fadeout;
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, alpha);
-    SDL_Rect rect = {0, 0, INT_MAX, INT_MAX};
+    SDL_Rect rect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
     SDL_RenderFillRect(renderer, &rect);
 
     return target;

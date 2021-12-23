@@ -32,7 +32,7 @@ MainMenu::MainMenu() {
                    StateManager::getInstance().switchToState(new AIGameState);
                  }));
 
-    #ifndef __vita__
+    #if !defined(__vita__) && !defined(__PSP__)
       addItem(
           MenuItem("2P VS",
                   [&]() {
@@ -57,8 +57,8 @@ MainMenu::~MainMenu() {
 
 void MainMenu::render() const {
 
-    int x = 311;
-    int y = 200;
+    int x = menu_x;
+    int y = menu_y;
 
     for (unsigned i = 0; i < _items.size(); ++i) {
         y += 18;

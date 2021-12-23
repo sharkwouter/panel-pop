@@ -9,6 +9,7 @@
 #define GAME_BOARDEVENTHANDLER_H_
 
 #include "../Rendering/GameRenderer.h"
+#include "../scale.h"
 
 class BoardEventHandler {
  public:

@@ -39,9 +39,9 @@ void Particle::tick() {
 }
 
 void Particle::render() {
-    SDL_Rect sprite = {0, 382, 5, 5};
+    SDL_Rect sprite = {0, 0, 5, 5};
     SDL_Rect pos = {_x, _y, 5, 5};
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+    SDL_RenderCopy(_SDLRenderer, _particleSprite, &sprite, &pos);
 }
 
 Particle::~Particle() {

@@ -1,0 +1,109 @@
+/*
+ * scale.h
+ *
+ *  Created on: 9.9.2021
+ *      Author: sharkwouter
+ */
+
+#ifndef SCALE_H_
+#define SCALE_H_
+
+#ifdef __PSP__
+    const int TILE_SIZE = 16;
+    const int WINDOW_WIDTH = 480;
+    const int WINDOW_HEIGHT = 272;
+    const int FONT_SIZE = 8;
+    const int FONT_MENU_SIZE = 24;
+
+    const int BOARD0_X = 109;
+    const int BOARD0_Y = 38;
+    const int BOARD1_X = 275;
+    const int BOARD1_Y = 38;
+
+    const int CURSOR_OFFSET = 3;
+
+    const int STACK_RAISE_TICKS_START = 20;
+
+    const int ENDLESS_TEXT_X = 210;
+    const int ENDLESS_HIGHSCORE_Y = 54;
+    const int ENDLESS_SCORE_y = 74;
+    const int ENDLESS_SPEED_Y = 94;
+    const int ENDLESS_TIME_Y = 114;
+
+    const int GAMEOVER_TEXT_X = 160;
+    const int GAMEOVER_TEXT_Y = 170;
+
+    const int VERSUS_TIME_X = 220;
+    const int VERSUS_TIME_Y = 126;
+    const int VERSUS_POINTS_X = 212;
+    const int VERSUS_POINTS_Y = 106;
+
+    const int VERSUS_MATCH_POINT_1_X = 210;
+    const int VERSUS_MATCH_POINT_1_Y = 33;
+    const int VERSUS_MATCH_POINT_2_X = 258;
+    const int VERSUS_MATCH_POINT_2_Y = 33;
+
+    const int VERSUS_GARBAGE_QUEUE_1_X = 209;
+    const int VERSUS_GARBAGE_QUEUE_1_Y = 170;
+    const int VERSUS_GARBAGE_QUEUE_2_X = 252;
+    const int VERSUS_GARBAGE_QUEUE_2_Y = 170;
+    const int VERSUS_GARBAGE_QUEUE_WIDTH = 19;
+    const int VERSUS_GARBAGE_QUEUE_HEIGHT = 60;
+
+    const int TITLESCREEN_VERSION_X = 135;
+
+    const int PAUSE_MENU_TEXT_GAP = 1;
+#else
+    const int TILE_SIZE = 32;
+    const int WINDOW_WIDTH = 640;
+    const int WINDOW_HEIGHT = 480;
+    const int FONT_SIZE = 16;
+    const int FONT_MENU_SIZE = 48;
+
+    const int BOARD0_X = 58;
+    const int BOARD0_Y = 43;
+    const int BOARD1_X = 390;
+    const int BOARD1_Y = 43;
+
+    const int CURSOR_OFFSET = 6;
+
+    const int STACK_RAISE_TICKS_START = 10;
+
+    const int ENDLESS_TEXT_X = 260;
+    const int ENDLESS_HIGHSCORE_Y = 76;
+    const int ENDLESS_SCORE_y = 116;
+    const int ENDLESS_SPEED_Y = 156;
+    const int ENDLESS_TIME_Y = 196;
+
+    const int GAMEOVER_TEXT_X = 134;
+    const int GAMEOVER_TEXT_Y = 342;
+
+    const int VERSUS_TIME_X = 280;
+    const int VERSUS_TIME_Y = 218;
+    const int VERSUS_POINTS_X = 264;
+    const int VERSUS_POINTS_Y = 180;
+
+    const int VERSUS_MATCH_POINT_1_X = 260;
+    const int VERSUS_MATCH_POINT_1_Y = 35;
+    const int VERSUS_MATCH_POINT_2_X = 359;
+    const int VERSUS_MATCH_POINT_2_Y = 35;
+
+    const int VERSUS_GARBAGE_QUEUE_1_X = 258;
+    const int VERSUS_GARBAGE_QUEUE_1_Y = 307;
+    const int VERSUS_GARBAGE_QUEUE_2_X = 258;
+    const int VERSUS_GARBAGE_QUEUE_2_Y = 344;
+    const int VERSUS_GARBAGE_QUEUE_WIDTH = 38;
+    const int VERSUS_GARBAGE_QUEUE_HEIGHT = 120;
+
+    const int TITLESCREEN_VERSION_X = 159;
+
+    const int PAUSE_MENU_TEXT_GAP = 2;
+#endif
+
+const int BOARD_WIDTH = TILE_SIZE*6;
+const int BOARD_HEIGHT = TILE_SIZE*12;
+
+const int CURSOR_WIDTH = TILE_SIZE * 2 + CURSOR_OFFSET * 2;
+const int CURSOR_HEIGHT = TILE_SIZE + CURSOR_OFFSET * 2;
+
+#endif /* SCALE_H_ */

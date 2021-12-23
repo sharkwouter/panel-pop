@@ -19,9 +19,6 @@
 #include "../Game/GarbageBlock.h"
 #include "../SDLContext.h"
 
-const int BoardRenderer::BOARD_WIDTH = 192;
-const int BoardRenderer::BOARD_HEIGHT = 384;
-const int BoardRenderer::TILE_SIZE = 32;
 const int BoardRenderer::CURSOR_ANIM_TICKS = 32;
 
 BoardRenderer::BoardRenderer(const Board &board) :
@@ -132,9 +129,9 @@ void BoardRenderer::drawGrid() {
 void BoardRenderer::drawBlocks() {
     SDL_SetRenderDrawBlendMode(_SDLRenderer, SDL_BLENDMODE_BLEND);
     if (_board.getState() == Board::COUNTDOWN) {
-        SDL_SetTextureAlphaMod(_spriteSheet, 0xa0);
+        SDL_SetTextureAlphaMod(_blockSprites, 0xa0);
     } else {
-        SDL_SetTextureAlphaMod(_spriteSheet, 0xff);
+        SDL_SetTextureAlphaMod(_blockSprites, 0xff);
     }
     for (int i = 0; i < Board::BOARD_HEIGHT; i++) {
         for (int j = 0; j < Board::BOARD_WIDTH; j++) {
@@ -154,7 +151,6 @@ void BoardRenderer::drawBlocks() {
                 } else if (block._state == SWAPPING_LEFT) {
                     pos.x -= xOffset;
                 }
-                //SDL_RenderFillRect(_SDLRenderer, &pos);
                 if (block._explosionTimer > BLINK_TIME
                     && block._explosionTimer >= block._explosionAnimTicks) {
                     continue;
@@ -185,28 +181,23 @@ void BoardRenderer::drawBlocks() {
                     SDL_Rect bottom = {sheet.x, sheet.y + (TILE_SIZE - px),
                                        sheet.w, px};
                     pos.h = top.h;
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &top, &pos);
-                    SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0x80, 0x80);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &top, &pos);
+                    SDL_SetTextureColorMod(_blockSprites, 0xFF, 0x80, 0x80);
                     pos.h = bottom.h;
                     pos.y += top.h;
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &bottom, &pos);
-                    SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0xFF, 0xFF);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &bottom, &pos);
+                    SDL_SetTextureColorMod(_blockSprites, 0xFF, 0xFF, 0xFF);
                 } else if (_board.getWarnColumn(j)
                     && !_board.hasActiveBlocks()) {
                     pos.y += sin(_board.getTicksRun());
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
                 } else {
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+                    SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
                 }
             }
-            /* TODO: debug mode...
-            if (_board.getTile(i, j).chain) {
-                SDL_SetRenderDrawColor(_SDLRenderer, 0, 0xFF, 0, 0x80);
-                SDL_RenderFillRect(_SDLRenderer, &pos);
-            }*/
         }
     }
-    SDL_SetTextureAlphaMod(_spriteSheet, 0xff);
+    SDL_SetTextureAlphaMod(_blockSprites, 0xff);
 }
 
 SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
@@ -214,13 +205,13 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
     sprite.w = TILE_SIZE;
     sprite.h = TILE_SIZE;
     switch (block._color) {
-        case BlockColor::CYAN: sprite.x = 64;
+        case BlockColor::CYAN: sprite.x = TILE_SIZE * 2;
             break;
-        case BlockColor::GREEN: sprite.x = 32;
+        case BlockColor::GREEN: sprite.x = TILE_SIZE;
             break;
-        case BlockColor::PURPLE: sprite.x = 96;
+        case BlockColor::PURPLE: sprite.x = TILE_SIZE * 3;
             break;
-        case BlockColor::RED: sprite.x = 128;
+        case BlockColor::RED: sprite.x = TILE_SIZE * 4;
             break;
         case BlockColor::YELLOW: sprite.x = 0;
             break;
@@ -231,15 +222,15 @@ SDL_Rect BoardRenderer::getBlockSprite(const Block &block) {
             if (block._explosionTimer % 2 == 0) {
                 sprite.y = 0;
             } else {
-                sprite.y = 160;
+                sprite.y = 2 * TILE_SIZE;
             }
         } else {
             if (block._explosionTimer < block._explosionAnimTicks) {
-                sprite.y = 128;
+                sprite.y = TILE_SIZE;
             }
         }
     } else if (_board.getState() == Board::GAME_OVER) {
-        sprite.y = 128;
+        sprite.y = 2 * TILE_SIZE;
     } else {
         sprite.y = 0;
     }
@@ -271,9 +262,9 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         t = 1; //middle
     }
     if (h == 1) {
-        sprite.x = 224 + t * TILE_SIZE;
+        sprite.x = t * TILE_SIZE;
         if (blink) {
-            sprite.y += TILE_SIZE;
+            sprite.y += 3 * TILE_SIZE;
         }
         return sprite;
     } else {
@@ -285,10 +276,10 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
         } else {
             u = 1; //middle
         }
-        sprite.x = 320 + t * TILE_SIZE;
-        sprite.y = 0 + u * TILE_SIZE;
+        sprite.x = t * TILE_SIZE;
+        sprite.y = u * TILE_SIZE;
         if (blink) {
-            sprite.y += 3 * TILE_SIZE;
+            sprite.x += 3 * TILE_SIZE;
         }
         return sprite;
     }
@@ -296,7 +287,7 @@ SDL_Rect BoardRenderer::getGarbageBlockSprite(int rx, int ry,
 }
 
 void BoardRenderer::drawBufferRow() {
-    SDL_SetTextureColorMod(_spriteSheet, 0x50, 0x50, 0x50);
+    SDL_SetTextureColorMod(_blockSprites, 0x50, 0x50, 0x50);
     for (int i = 0; i < Board::BOARD_WIDTH; i++) {
         const Block block = _board.getBufferRow(i).b;
         SDL_Rect sheet = getBlockSprite(block);
@@ -311,10 +302,10 @@ void BoardRenderer::drawBufferRow() {
             pos.y += sin(_board.getTicksRun());
         }
 
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sheet, &pos);
+        SDL_RenderCopy(_SDLRenderer, _blockSprites, &sheet, &pos);
 
     }
-    SDL_SetTextureColorMod(_spriteSheet, 0xff, 0xff, 0xff);
+    SDL_SetTextureColorMod(_blockSprites, 0xff, 0xff, 0xff);
 }
 
 void BoardRenderer::drawGarbageBlocks() {
@@ -346,7 +337,7 @@ void BoardRenderer::drawGarbageBlocks() {
 
                 //normal
                 SDL_Rect sprite = getGarbageBlockSprite(rx, ry, *it);
-                SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+                SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
 
             }
         }
@@ -356,21 +347,21 @@ void BoardRenderer::drawGarbageBlocks() {
         pos.x = it->getX() * TILE_SIZE;
         pos.y = ((BOARD_HEIGHT - (it->getY() + 1) * TILE_SIZE)
             - _board.getStackOffset()) + warnOffset;
-        pos.w = 64;
-        pos.h = 24;
+        pos.w = TILE_SIZE * 2;
+        pos.h = TILE_SIZE * 0.75;
         SDL_Rect sprite;
-        sprite.x = 416;
-        sprite.w = 64;
-        sprite.h = 24;
+        sprite.x = TILE_SIZE * 6;
+        sprite.w = TILE_SIZE * 2;
+        sprite.h = TILE_SIZE * 0.75;
         bool blink = it->getTransformationTimer() % 2 != 0
             && it->getTransformationTimer() <= BLINK_TIME;
         if (it->getState() == GarbageBlockState::NORMAL
             || it->getTransformationTimer() > BLINK_TIME) {
             sprite.y = 4; //normal face
         } else if (!blink) {
-            sprite.y = 32;
+            sprite.y = TILE_SIZE;
         } else {
-            sprite.y = 64;
+            sprite.y = TILE_SIZE * 2;
         }
 
         int h = it->getH();
@@ -380,7 +371,7 @@ void BoardRenderer::drawGarbageBlocks() {
         pos.x += it->getW() * TILE_SIZE / 2 - sprite.w / 2;
         pos.y += h * TILE_SIZE / 2 - sprite.h / 2;
 
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+        SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
 
         //draw animation blocks...
         for (int y = it->getY() - (it->getH() - 1); y <= it->getY(); ++y) {
@@ -407,16 +398,16 @@ void BoardRenderer::drawGarbageBlocks() {
                         //draw revealed block
                         SDL_Rect sprite = getBlockSprite(
                             it->getBufferRow(it->getW() - rx - 1));
-                        SDL_SetTextureColorMod(_spriteSheet, 0x50, 0x50, 0x50);
-                        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite,
+                        SDL_SetTextureColorMod(_blockSprites, 0x50, 0x50, 0x50);
+                        SDL_RenderCopy(_SDLRenderer, _blockSprites, &sprite,
                                        &pos);
-                        SDL_SetTextureColorMod(_spriteSheet, 0xFF, 0xFF, 0xFF);
+                        SDL_SetTextureColorMod(_blockSprites, 0xFF, 0xFF, 0xFF);
                         continue;
                     }
                 } else if (it->getTransformationTimer() > BLINK_TIME) {
                     //transforming block
-                    SDL_Rect sprite = {480, 0, TILE_SIZE, TILE_SIZE};
-                    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+                    SDL_Rect sprite = {TILE_SIZE * 6, TILE_SIZE * 3, TILE_SIZE, TILE_SIZE};
+                    SDL_RenderCopy(_SDLRenderer, _garbageSprites, &sprite, &pos);
                 }
             }
         }
@@ -425,14 +416,14 @@ void BoardRenderer::drawGarbageBlocks() {
 }
 
 void BoardRenderer::drawCursor() {
-    SDL_Rect sprite = {224, 64, 76, 44};
+    SDL_Rect sprite = {0, 0, CURSOR_WIDTH, CURSOR_HEIGHT};
     if (_board.getTicksRun() % (2 * CURSOR_ANIM_TICKS) >= CURSOR_ANIM_TICKS) {
-        sprite.y += 44;
+        sprite.y += CURSOR_HEIGHT;
     }
-    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - 6, (BOARD_HEIGHT
+    SDL_Rect pos = {(_board.getCursorX() * TILE_SIZE) - CURSOR_OFFSET, (BOARD_HEIGHT
         - (_board.getCursorY() + 1) * TILE_SIZE) - _board.getStackOffset()
-        - 6, 76, 44};
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+        - CURSOR_OFFSET, CURSOR_WIDTH, CURSOR_HEIGHT};
+    SDL_RenderCopy(_SDLRenderer, _cursorSprites, &sprite, &pos);
 }
 
 BoardRenderer::~BoardRenderer() {

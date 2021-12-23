@@ -19,7 +19,14 @@ class Renderer {
   SDLContext &_SDLContext;
   SDL_Texture *_texture;
   SDL_Renderer *_SDLRenderer;
-  SDL_Texture *_spriteSheet;
+  SDL_Texture *_blockSprites;
+  SDL_Texture *_popupSprites;
+  SDL_Texture *_cursorSprites;
+  SDL_Texture *_garbageSprites;
+  SDL_Texture *_garbagequeueSprites;
+  SDL_Texture *_matchPointSprites;
+  SDL_Texture *_pauseSprite;
+  SDL_Texture *_particleSprite;
 };
 
 #endif /* RENDERER_H_ */

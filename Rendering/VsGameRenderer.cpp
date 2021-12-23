@@ -32,10 +32,12 @@ VsGameRenderer::VsGameRenderer(VsGame &game) :
     _b0Shake(0),
     _b1Shake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
-    _bg = _SDLContext.makeTextureFromImage("assets/bg1.png");
-    _2pbg = _SDLContext.makeTextureFromImage("assets/2p.png");
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _bg = _SDLContext.makeTextureFromImage("assets/images/bg1.png");
+    _2pbg = _SDLContext.makeTextureFromImage("assets/images/2p.png");
     SDL_SetTextureBlendMode(_2pbg, SDL_BLENDMODE_BLEND);
+
+    SDL_QueryTexture(_matchPointSprites, NULL, NULL, NULL, &_matchpointSize);
 }
 
 void VsGameRenderer::tick() {
@@ -63,9 +65,10 @@ SDL_Texture *VsGameRenderer::renderGame() {
 
         renderBoard(0);
         renderBoard(1);
-        SDL_Rect gbqp = {258, 307, 38, 120};
+        SDL_Rect gbqp = {VERSUS_GARBAGE_QUEUE_1_X, VERSUS_GARBAGE_QUEUE_1_Y, VERSUS_GARBAGE_QUEUE_WIDTH, VERSUS_GARBAGE_QUEUE_HEIGHT};
         SDL_RenderCopy(_SDLRenderer, gbq, NULL, &gbqp);
-        gbqp.x = 344;
+        gbqp.x = VERSUS_GARBAGE_QUEUE_2_X;
+        gbqp.y = VERSUS_GARBAGE_QUEUE_2_Y;
         SDL_RenderCopy(_SDLRenderer, gbq2, NULL, &gbqp);
         renderParticles();
 
@@ -86,7 +89,7 @@ SDL_Texture *VsGameRenderer::renderGame() {
     if (_game.getState() == Game::State::ENDED
         && SDL_GetTicks() % 1000 >= 500) {
         _SDLContext.renderText("PUSH START", {255, 255, 255},
-                               _SDLContext._fontSquare, 134, 342);
+                               _SDLContext._fontSquare, GAMEOVER_TEXT_X, GAMEOVER_TEXT_Y);
     }
 
     return _texture;
@@ -95,7 +98,7 @@ SDL_Texture *VsGameRenderer::renderGame() {
 void VsGameRenderer::renderStatsText() {
 //time
 
-    renderGameTime(280, 218);
+    renderGameTime(VERSUS_TIME_X, VERSUS_TIME_Y);
 
 //points
     std::ostringstream os;
@@ -103,32 +106,32 @@ void VsGameRenderer::renderStatsText() {
        << ' ' << std::setw(2) << std::setfill('0') << _game.getP2Points()
        << "\u25b6";
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           264, 180);
+                           VERSUS_POINTS_X, VERSUS_POINTS_Y);
 }
 
 void VsGameRenderer::renderMatchPoints() {
 //p1
-    SDL_Rect sprite = {0, 361, 21, 21};
-    SDL_Rect pos = {260, 35, 21, 21};
+    SDL_Rect sprite = {0, 0, _matchpointSize, _matchpointSize};
+    SDL_Rect pos = {VERSUS_MATCH_POINT_1_X, VERSUS_MATCH_POINT_1_Y, _matchpointSize, _matchpointSize};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP1MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = 21;
+            sprite.x = _matchpointSize;
         } else {
             sprite.x = 0;
         }
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
-        pos.y += 23;
+        SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
+        pos.y += _matchpointSize + 2;
     }
 //p2
-    pos = {359, 35, 21, 21};
+    pos = {VERSUS_MATCH_POINT_2_X, VERSUS_MATCH_POINT_2_Y, _matchpointSize, _matchpointSize};
     for (int i = 0; i < VsGame::MATCH_POINTS; ++i) {
         if (_game.getP2MatchPoints() >= VsGame::MATCH_POINTS - i) {
-            sprite.x = 21;
+            sprite.x = _matchpointSize;
         } else {
             sprite.x = 0;
         }
-        SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
-        pos.y += 23;
+        SDL_RenderCopy(_SDLRenderer, _matchPointSprites, &sprite, &pos);
+        pos.y += _matchpointSize + 2;
     }
 }
 
@@ -158,8 +161,8 @@ void VsGameRenderer::renderBoard(int id) {
     SDL_Rect pos;
     double shake;
     SDL_Texture *boardTexture;
-    pos.h = BoardRenderer::BOARD_HEIGHT;
-    pos.w = BoardRenderer::BOARD_WIDTH;
+    pos.h = BOARD_HEIGHT;
+    pos.w = BOARD_WIDTH;
     if (id == 0) {
         pos.x = BOARD0_X;
         pos.y = BOARD0_Y;
@@ -173,8 +176,8 @@ void VsGameRenderer::renderBoard(int id) {
     }
 
     int shakeOffset = .5 * shake * sin(shake);
-    SDL_Rect src = {0, 0, BoardRenderer::BOARD_WIDTH,
-                    BoardRenderer::BOARD_HEIGHT};
+    SDL_Rect src = {0, 0, BOARD_WIDTH,
+                    BOARD_HEIGHT};
 
     if (shakeOffset >= 0) {
         pos.y += shakeOffset;

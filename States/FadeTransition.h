@@ -11,6 +11,7 @@
 
 #include "State.h"
 #include <functional>
+#include "../scale.h"
 
 class FadeTransition : public State {
   typedef std::function<State *()> StateConstructor;

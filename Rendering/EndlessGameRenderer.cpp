@@ -23,9 +23,9 @@ EndlessGameRenderer::EndlessGameRenderer(EndlessGame &game) :
     _boardRenderer(_game.getBoard(0)),
     _bShake(0) {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
-    _bg = _SDLContext.makeTextureFromImage("assets/bg1.png");
-    _1pbg = _SDLContext.makeTextureFromImage("assets/1p.png");
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _bg = _SDLContext.makeTextureFromImage("assets/images/bg1.png");
+    _1pbg = _SDLContext.makeTextureFromImage("assets/images/1p.png");
 }
 
 EndlessGameRenderer::~EndlessGameRenderer() {
@@ -69,7 +69,7 @@ SDL_Texture *EndlessGameRenderer::renderGame() {
     if (_game.getState() == Game::State::ENDED
         && SDL_GetTicks() % 1000 >= 500) {
         _SDLContext.renderText("PUSH START", {255, 255, 255},
-                               _SDLContext._fontSquare, 134, 342);
+                               _SDLContext._fontSquare, GAMEOVER_TEXT_X, GAMEOVER_TEXT_Y);
     }
 
     return _texture;
@@ -79,8 +79,8 @@ void EndlessGameRenderer::renderBoard() {
     SDL_Rect pos;
     double shake;
     SDL_Texture *boardTexture;
-    pos.h = BoardRenderer::BOARD_HEIGHT;
-    pos.w = BoardRenderer::BOARD_WIDTH;
+    pos.h = BOARD_HEIGHT;
+    pos.w = BOARD_WIDTH;
 
     pos.x = BOARD0_X;
     pos.y = BOARD0_Y;
@@ -88,8 +88,8 @@ void EndlessGameRenderer::renderBoard() {
     boardTexture = _boardRenderer.renderBoard();
 
     int shakeOffset = .5 * shake * sin(shake);
-    SDL_Rect src = {0, 0, BoardRenderer::BOARD_WIDTH,
-                    BoardRenderer::BOARD_HEIGHT};
+    SDL_Rect src = {0, 0, BOARD_WIDTH,
+                    BOARD_HEIGHT};
 
     if (shakeOffset >= 0) {
         pos.y += shakeOffset;
@@ -106,24 +106,24 @@ void EndlessGameRenderer::renderBoard() {
 }
 
 void EndlessGameRenderer::renderStatsText() {
-    renderGameTime(260, 196);
+    renderGameTime(ENDLESS_TEXT_X, ENDLESS_TIME_Y);
     //speed
     std::ostringstream os;
-    os << 11 - _game.getBoard(0).getStackRaiseTicks();
+    os << STACK_RAISE_TICKS_START + 1 - _game.getBoard(0).getStackRaiseTicks();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 156);
+                           ENDLESS_TEXT_X, ENDLESS_SPEED_Y);
     //score
     os.str("");
     os.clear();
     os << _game.getBoard(0).getScore();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 116);
+                           ENDLESS_TEXT_X, ENDLESS_SCORE_y);
     //high score
     os.str("");
     os.clear();
     os << _game.getHighScore();
     _SDLContext.renderText(os.str(), {255, 255, 255}, _SDLContext._fontPs,
-                           260, 76);
+                           ENDLESS_TEXT_X, ENDLESS_HIGHSCORE_Y);
 }
 
 void EndlessGameRenderer::shakeBoard(int id, int duration) {

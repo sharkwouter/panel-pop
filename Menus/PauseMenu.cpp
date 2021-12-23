@@ -25,6 +25,10 @@ PauseMenu::PauseMenu(Game &game) :
     addItem(
         MenuItem("QUIT",
                  []() { StateManager::getInstance().returnToTitle(); }));
+
+    SDL_QueryTexture(_pauseSprite, NULL, NULL, &_sprite_w, &_sprite_h);
+    _menu_x = WINDOW_WIDTH / 2 - _sprite_w / 2;
+    _menu_y = WINDOW_HEIGHT / 2 - _sprite_h / 2;
 }
 
 PauseMenu::~PauseMenu() {
@@ -32,21 +36,21 @@ PauseMenu::~PauseMenu() {
 
 void PauseMenu::render() const {
     //background
-    SDL_Rect sprite = {0, 410, 150, 70};
-    SDL_Rect pos = {245, 205, 150, 70};
-    SDL_RenderCopy(_SDLRenderer, _spriteSheet, &sprite, &pos);
+    SDL_Rect sprite = {0, 0, _sprite_w, _sprite_h};
+    SDL_Rect pos = {_menu_x, _menu_y, _sprite_w, _sprite_h};
+    SDL_RenderCopy(_SDLRenderer, _pauseSprite, &sprite, &pos);
 
-    int x = pos.x + 20;
-    int y = pos.y + 8;
+    int x = pos.x + FONT_SIZE + 4;
+    int y = pos.y + FONT_SIZE / 2;
 
     _SDLContext.renderText("-PAUSE-", {255, 255, 255}, _SDLContext._fontPs, x,
                            y);
 
-    x = pos.x + 16;
-    y += 2;
+    x = pos.x + FONT_SIZE;
+    y += PAUSE_MENU_TEXT_GAP;
 
     for (unsigned i = 0; i < _items.size(); ++i) {
-        y += 18;
+        y += FONT_SIZE + PAUSE_MENU_TEXT_GAP;
         std::string text = _items.at(i).getName();
         if (_selection == i && (SDL_GetTicks() - _time) % 1000 < 500) {
             text = "\u25b6" + text;

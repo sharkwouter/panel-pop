@@ -17,7 +17,7 @@
 
 OptionsMenuState::OptionsMenuState() {
     _texture = SDL_CreateTexture(_SDLRenderer, SDL_PIXELFORMAT_RGBA8888,
-                                 SDL_TEXTUREACCESS_TARGET, 640, 480);
+                                 SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH, WINDOW_HEIGHT);
     _currentMenu = new OptionsMenu(*this);
 }
 

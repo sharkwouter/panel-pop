@@ -53,6 +53,7 @@ set(SRCS
         Menus/PauseMenu.cpp
         Menus/MenuItem.cpp
         Menus/Menu.cpp
+        scale.h
         InputState.cpp InputState.h InputEvents/InputEvent.cpp InputEvents/InputEvent.h InputEvents/KeyboardKey.cpp InputEvents/KeyboardKey.h Config/InputConfig.cpp Config/InputConfig.h InputEvents/JoyButton.cpp InputEvents/JoyButton.h InputEvents/JoyHat.cpp InputEvents/JoyHat.h InputEvents/JoyAxisDirection.cpp InputEvents/JoyAxisDirection.h)
 
 add_executable(panel-pop ${SRCS})
@@ -133,12 +134,59 @@ if (VITA)
 		    FILE assets/fonts assets/fonts
 		    FILE assets/music assets/music
 		    FILE assets/sfx assets/sfx
-		    FILE assets/1p.png assets/1p.png
-		    FILE assets/2p.png assets/2p.png
-		    FILE assets/bg1.png assets/bg1.png
-		    FILE assets/sprites.png assets/sprites.png
-		    FILE assets/title.png assets/title.png
+		    FILE assets/images/ assets/images/
 	)
+ELSEIF(PLATFORM_PSP)
+	include_directories(
+		${PSPDEV}/psp/include/SDL2
+		${PSPDEV}/psp/include/jsoncpp
+		${PSPDEV}/psp/include/libpng15
+	)
+
+	target_link_libraries(panel-pop PRIVATE
+		SDL2_image
+		SDL2_mixer
+		SDL2
+		SDL2_ttf
+		SDL2main
+		png
+		jpeg
+		pspvram
+		GL
+		pspvram
+		pspvfpu
+		pspgu
+		pspctrl
+		pspdebug
+		pspdisplay
+		pspge
+		pspaudio
+		psphprm
+		jsoncpp
+		vorbisfile
+		vorbis
+		ogg
+		freetype
+		z
+	)
+
+	create_pbp_file(
+		TARGET panel-pop
+		ICON_PATH NULL
+		BACKGROUND_PATH NULL
+		PREVIEW_PATH NULL
+		TITLE panel-pop
+		BUILD_PRX
+	)
+
+	file(COPY platform/psp/panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/music DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/sfx DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY platform/psp/assets/images DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/images/popups.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
+	file(COPY assets/images/particle.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
+	file(COPY assets/images/garbagequeue.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
 ELSE()
 	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
 
@@ -155,14 +203,22 @@ ELSE()
 	get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
 
 	include_directories(${SDL2_INCLUDE_DIR}
-		    ${SDL2_IMAGE_INCLUDE_DIR}
-		    ${SDL2_TTF_INCLUDE_DIR}
-		    ${SDL2_MIXER_INCLUDE_DIR}
-		    ${JSON_INC_PATH})
+		${SDL2_IMAGE_INCLUDE_DIR}
+		${SDL2_TTF_INCLUDE_DIR}
+		${SDL2_MIXER_INCLUDE_DIR}
+		${JSON_INC_PATH}
+	)
 
 	target_link_libraries(panel-pop ${SDL2_LIBRARY}
-		    ${SDL2_IMAGE_LIBRARIES}
-		    ${SDL2_TTF_LIBRARIES}
-		    ${SDL2_MIXER_LIBRARIES}
-		    jsoncpp)
+		${SDL2_IMAGE_LIBRARIES}
+		${SDL2_TTF_LIBRARIES}
+		${SDL2_MIXER_LIBRARIES}
+		jsoncpp
+	)
+
+	file(COPY panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
+	file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/music DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/sfx DESTINATION ${CMAKE_BINARY_DIR}/assets)
+	file(COPY assets/images DESTINATION ${CMAKE_BINARY_DIR}/assets)
 ENDIF()
