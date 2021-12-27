@@ -172,11 +172,12 @@ ELSEIF(PLATFORM_PSP)
 
 	create_pbp_file(
 		TARGET panel-pop
-		ICON_PATH NULL
+		ICON_PATH ${CMAKE_SOURCE_DIR}/platform/psp/icon.png
 		BACKGROUND_PATH NULL
 		PREVIEW_PATH NULL
-		TITLE panel-pop
+		TITLE Panel-Pop
 		BUILD_PRX
+		ENC_PRX
 	)
 
 	file(COPY platform/psp/panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
