@@ -22,7 +22,7 @@
 #include <fstream>
 
 #ifdef __vita__
-    #include <psp2/kernel/iofilemgr.h>
+    #include <psp2/io/stat.h>
 #endif
 
 ConfigHandler::ConfigHandler() {
