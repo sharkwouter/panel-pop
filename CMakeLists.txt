@@ -93,10 +93,10 @@ include_directories(${INCLUDE_DIRECTORIES}
 )
 
 target_link_libraries(panel-pop
-        SDL2
         SDL2_image
         SDL2_ttf
         SDL2_mixer
+        SDL2
         jsoncpp
         stdc++
         vita2d
@@ -112,6 +112,7 @@ target_link_libraries(panel-pop
         mikmod
         mpg123
         FLAC
+        SceAppMgr_stub
         SceAppUtil_stub
         SceAudio_stub
         SceCommonDialog_stub
