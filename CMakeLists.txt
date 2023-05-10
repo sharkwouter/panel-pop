@@ -165,7 +165,9 @@ ELSEIF(PLATFORM_PSP)
 		vorbisfile
 		vorbis
 		ogg
+		xmp
 		freetype
+		bz2
 		z
 	)
 
