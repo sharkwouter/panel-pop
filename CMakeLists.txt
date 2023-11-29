@@ -178,7 +178,6 @@ ELSEIF(PLATFORM_PSP)
 		PREVIEW_PATH NULL
 		TITLE Panel-Pop
 		BUILD_PRX
-		ENC_PRX
 	)
 
 	file(COPY platform/psp/panelpop.json DESTINATION ${CMAKE_BINARY_DIR})

@@ -5,6 +5,7 @@
  *      Author: axel
  */
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_main.h>
 #include <SDL2/SDL_scancode.h>
@@ -16,7 +17,7 @@
 #include "SDLContext.h"
 #include "States/StateManager.h"
 
-int main(int argc, char *args[]) {
+int main(int argc, char *argv[]) {
     srand(time(NULL));
     SDLContext &SDL = SDLContext::getInstance();
     ConfigHandler &configHandler = ConfigHandler::getInstance();
