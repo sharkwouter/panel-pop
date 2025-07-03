@@ -58,6 +58,27 @@ set(SRCS
 
 add_executable(panel-pop ${SRCS})
 
+include(FindPkgConfig)
+pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2_IMAGE REQUIRED SDL2_image)
+pkg_search_module(SDL2_MIXER REQUIRED SDL2_mixer)
+pkg_search_module(SDL2_TTF REQUIRED SDL2_ttf)
+pkg_search_module(JSONCPP REQUIRED jsoncpp)
+
+target_link_libraries(panel-pop PRIVATE
+		${SDL2_LIBRARIES}
+		${SDL2_IMAGE_LIBRARIES}
+		${SDL2_MIXER_LIBRARIES}
+		${SDL2_TTF_LIBRARIES}
+		${JSONCPP_LIBRARIES}
+)
+include_directories(
+		${SDL2_IMAGE_INCLUDE_DIRS}
+		${SDL2_MIXER_INCLUDE_DIRS}
+		${SDL2_TTF_INCLUDE_DIRS}
+		${JSONCPP_INCLUDE_DIRS}
+)
+
 if (VITA)
 	# VITASDK defines
 	if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
@@ -78,51 +99,6 @@ if (VITA)
 	# Optional. You can specify more param.sfo flags this way.
 	set(VITA_MKSFOEX_FLAGS "${VITA_MKSFOEX_FLAGS} -d PARENTAL_LEVEL=1")
 
-	set(VITA_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/")
-	set(SDL2_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/SDL2")
-	set(JSON_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/jsoncpp")
-	set(PNG_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/libpng16")
-	set(FLAC_INCLUDE_DIR "$ENV{VITASDK}/arm-vita-eabi/include/FLAC")
-
-	include_directories(${INCLUDE_DIRECTORIES}
-		    ${VITA_INCLUDE_DIR}
-		    ${SDL2_INCLUDE_DIR}
-		    ${JSON_INCLUDE_DIR}
-		    ${PNG_INCLUDE_DIR}
-		    ${FLAC_INCLUDE_DIR}
-	)
-
-	target_link_libraries(panel-pop
-		SDL2_image
-		SDL2_ttf
-		SDL2_mixer
-		SDL2
-		jsoncpp
-		stdc++
-		webp
-		pthread
-		png16
-		freetype
-		vorbisfile
-		vorbis
-		ogg
-		jpeg
-		z
-		m
-		mikmod
-		mpg123
-		FLAC
-		SceAppUtil_stub
-		SceAudio_stub
-		SceCommonDialog_stub
-		SceCtrl_stub
-		SceDisplay_stub
-		SceGxm_stub
-		SceHid_stub
-		SceSysmodule_stub
-		SceTouch_stub
-		SceMotion_stub
-	)
 	vita_create_self(panel-pop.self panel-pop)
 
 	vita_create_vpk(panel-pop.vpk ${VITA_TITLEID} panel-pop.self
@@ -136,41 +112,6 @@ if (VITA)
 		    FILE assets/images/ assets/images/
 	)
 ELSEIF(PLATFORM_PSP)
-	include_directories(
-		${PSPDEV}/psp/include/SDL2
-		${PSPDEV}/psp/include/jsoncpp
-		${PSPDEV}/psp/include/libpng15
-	)
-
-	target_link_libraries(panel-pop PRIVATE
-		SDL2_image
-		SDL2_mixer
-		SDL2
-		SDL2_ttf
-		SDL2main
-		png
-		jpeg
-		pspvram
-		GL
-		pspvram
-		pspvfpu
-		pspgu
-		pspctrl
-		pspdebug
-		pspdisplay
-		pspge
-		pspaudio
-		psphprm
-		jsoncpp
-		vorbisfile
-		vorbis
-		ogg
-		xmp
-		freetype
-		bz2
-		z
-	)
-
 	create_pbp_file(
 		TARGET panel-pop
 		ICON_PATH ${CMAKE_SOURCE_DIR}/platform/psp/icon.png
@@ -189,34 +130,6 @@ ELSEIF(PLATFORM_PSP)
 	file(COPY assets/images/particle.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
 	file(COPY assets/images/garbagequeue.png DESTINATION ${CMAKE_BINARY_DIR}/assets/images)
 ELSE()
-	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
-
-	find_package(SDL2 REQUIRED)
-	find_package(SDL2_image REQUIRED)
-	find_package(SDL2_ttf REQUIRED)
-	find_package(SDL2_mixer REQUIRED)
-
-	find_package(SDL2 REQUIRED)
-	find_package(SDL2_image REQUIRED)
-	find_package(SDL2_ttf REQUIRED)
-	find_package(SDL2_mixer REQUIRED)
-	find_package(jsoncpp REQUIRED)
-	get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
-
-	include_directories(${SDL2_INCLUDE_DIR}
-		${SDL2_IMAGE_INCLUDE_DIR}
-		${SDL2_TTF_INCLUDE_DIR}
-		${SDL2_MIXER_INCLUDE_DIR}
-		${JSON_INC_PATH}
-	)
-
-	target_link_libraries(panel-pop ${SDL2_LIBRARY}
-		${SDL2_IMAGE_LIBRARIES}
-		${SDL2_TTF_LIBRARIES}
-		${SDL2_MIXER_LIBRARIES}
-		jsoncpp
-	)
-
 	file(COPY panelpop.json DESTINATION ${CMAKE_BINARY_DIR})
 	file(COPY assets/fonts DESTINATION ${CMAKE_BINARY_DIR}/assets)
 	file(COPY assets/music DESTINATION ${CMAKE_BINARY_DIR}/assets)
